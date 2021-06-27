@@ -19,4 +19,10 @@ mybatis:
   mapper-locations: classpath:mybatis/*.xml
 
 
+# 图片上传地址配置
+case:
+  uploadPath: E:\data\UserSystem\target\classes\upload\
+  resources:
+    pathPatterns: /upload/**
+    resourceLocations: file:${case.uploadPath}
 

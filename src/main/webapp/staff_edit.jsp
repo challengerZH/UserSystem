@@ -52,8 +52,8 @@
                     console.log(data);
                     var imageURL=data;
                     var paths = imageURL.split('\\');
-                    var showUrl  = "http://localhost:8080/system/upload/" + paths[paths.length-1];
-                    $('#pImg').attr('src',showUrl);
+                    imageURL  = "../upload/" + paths[paths.length-1];
+                    $('#pImg').attr('src',imageURL);
                     $('#info').attr('value',imageURL);
                 }
             })
