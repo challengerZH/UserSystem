@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzy.pi.dao.LogDao">
+    <resultMap id="resultMap" type="com.lzy.pi.entity.SysLog">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="opr_time" jdbcType="TIMESTAMP" property="oprTime"/>
+        <result column="leave_time" jdbcType="TIMESTAMP" property="leaveTime"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="moudle" jdbcType="VARCHAR" property="moudle"/>
+        <result column="operation" jdbcType="VARCHAR" property="operation"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.lzy.pi.entity.SysLog">
+        insert into sys_log (id, opr_time, leave_time,
+      type, user_id, moudle,
+      operation, remark)
+    values (#{id,jdbcType=INTEGER}, #{oprTime,jdbcType=TIMESTAMP}, #{leaveTime,jdbcType=TIMESTAMP},
+      #{type,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{moudle,jdbcType=VARCHAR},
+      #{operation,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="selectByType" parameterType="String" resultMap="resultMap">
+        select * from sys_log where type=#{type} order by opr_time desc
+    </select>
+
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzy.pi.dao.StaffDao">
+    <resultMap id="resultMap" type="com.lzy.pi.entity.User">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <id column="office_id" jdbcType="INTEGER" property="officeId" />
+        <id column="office_name" jdbcType="VARCHAR" property="officeName" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="post" jdbcType="VARCHAR" property="post" />
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="info" jdbcType="VARCHAR" property="info" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.lzy.pi.entity.User" useGeneratedKeys="true">
+        insert into user (phone, password,
+      status, name, post,
+      start_time, end_time, create_time,
+      update_time, info, office_id, office_name)
+    values (#{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{post,jdbcType=VARCHAR},
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{info,jdbcType=VARCHAR}, #{officeId,jdbcType=INTEGER}, #{officeName,jdbcType=VARCHAR})
+    </insert>
+    <delete id="delete" parameterType="Integer">
+        delete from user where id=#{id}
+    </delete>
+    <update id="update" parameterType="com.lzy.pi.entity.User">
+        update user
+        <set>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="post != null">
+                post = #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="info != null">
+                info = #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="officeId != null">
+                office_id = #{officeId,jdbcType=INTEGER},
+            </if>
+            <if test="officeName != null">
+                office_name = #{officeName,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectById" parameterType="Integer" resultMap="resultMap">
+        select * from user where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="resultMap">
+        select * from user;
+    </select>
+    <select id="queryByNameOrPhone" parameterType="String" resultMap="resultMap">
+        select * from user where
+        1=1
+        <if test="name != null">
+          and  name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="phone != null">
+          and  phone = #{phone,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+</mapper>
