@@ -16,21 +16,8 @@ public class LogServiceImpl implements LogService {
     @Autowired(required = false)
     private LogDao logDao;
 
-    public void addSystemLog(SysLog log) {
-        log.setOprTime(new Date());
-        log.setType("system");
-        logDao.insert(log);
-    }
-
-    public void addLoginLog(SysLog log) {
-        log.setOprTime(new Date());
-        log.setType("login");
-        logDao.insert(log);
-    }
-
     public void addOperationLog(SysLog log) {
         log.setOprTime(new Date());
-        log.setType("operation");
         logDao.insert(log);
     }
 

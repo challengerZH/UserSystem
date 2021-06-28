@@ -2,6 +2,7 @@ package com.lzy.pi.controller;
 
 import com.lzy.pi.entity.User;
 import com.lzy.pi.service.SelfService;
+import com.lzy.pi.utils.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,11 @@ import java.io.IOException;
 public class SelfController {
 
     Logger logger = LoggerFactory.getLogger(SelfController.class);
+    private static final String MOUDLE = "系统登录";
     @Autowired
     private SelfService selfService;
+    @Autowired
+    private LogUtil logUtil;
 
     //      /toLogin.do
     @RequestMapping("/toLogin")
@@ -41,6 +45,7 @@ public class SelfController {
         }else{
             HttpSession session = request.getSession();
             session.setAttribute("USER",user);
+            logUtil.addOperationLog(user.getId().toString(), MOUDLE, "登录系统");
             response.sendRedirect("../self/main");
         }
     }
@@ -78,6 +83,9 @@ public class SelfController {
         String password1 = request.getParameter("password1");
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("USER");
+        if(user != null) {
+            logUtil.addOperationLog(user.getId().toString(), MOUDLE, "密码修改");
+        }
         if(!user.getPassword().equals(password)){
             response.sendRedirect("../self/toChangePassword");
         }else{
