@@ -118,7 +118,7 @@ public class StaffController {
     }
 
     @RequestMapping("/remove")
-    public void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void remove(HttpServletRequest request, HttpServletResponse response) throws  IOException {
         logger.info("========进入StaffController的方法：/remove===========");
         Integer id = Integer.parseInt(request.getParameter("id"));
         staffService.remove(id);
@@ -146,7 +146,7 @@ public class StaffController {
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String uploadFile(HttpServletRequest request, HttpServletResponse response)  {
         logger.info("========进入StaffController的方法：/uploadFile===========");
         return staffService.uploadFile(request, response);
     }
@@ -166,7 +166,7 @@ public class StaffController {
             startTime = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startTime"));
             endTime = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endTime"));
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.error("设置user失败：{}", e.getMessage());
         }
         Date date = new Date();
         user.setInfo(info);

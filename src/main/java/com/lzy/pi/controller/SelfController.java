@@ -91,7 +91,7 @@ public class SelfController {
         }else{
             selfService.changePassword(user.getId(),password1);
             //response.sendRedirect("../logout.do");
-            response.getWriter().print("<script type=\"text/javascript\">parent.location.href=\"../system/self/logout\"</script>");
+            response.getWriter().print("<script type=\"text/javascript\">parent.location.href=\"../self/logout\"</script>");
         }
     }
 }

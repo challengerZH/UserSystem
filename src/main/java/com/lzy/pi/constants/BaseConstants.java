@@ -8,6 +8,8 @@ public final class BaseConstants {
     }
     //成功返回编码
     public static final  String SUCCESS_CODE = "000000";
+    public static final  String FAULT_CODE = "999999";
+    public static final  String DEFAULT_USER = "999999";
 
 
     /**

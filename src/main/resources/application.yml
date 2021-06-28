@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 19450
   servlet:
     context-path: /system
     application-display-name: system
@@ -21,7 +21,7 @@ mybatis:
 
 # 图片上传地址配置
 case:
-  uploadPath: E:\data\UserSystem\target\classes\upload\
+  uploadPath: E:/data/UserSystem/target/classes/upload/
   resources:
     pathPatterns: /upload/**
     resourceLocations: file:${case.uploadPath}

@@ -65,9 +65,12 @@
                                 <fmt:formatDate value="${USER.endTime}" pattern="yyyy-MM-dd hh:mm"/>
                             </div>
                         </li>
-                        <li class="clearfix">
-                            <span class="title">备注：</span>
-                            <div class="li_r">${USER.info}</div>
+                        <li class="clearfix" style="height:88px;">
+                            <span class="title">头像图片：</span>
+                            <div class="li_r">
+                                <img id="pImg" class="chang" src="${USER.info}"
+                                     style="width:78px; height: 78px;left: 20px; ">
+                            </div>
                         </li>
                     </ul>
                     <!--高级配置-->

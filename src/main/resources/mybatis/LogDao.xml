@@ -34,7 +34,7 @@
          l.operation as operation,
          l.opr_time as oprTime
          from sys_log l,user u where l.type = '1' and l.user_id = u.id
-         order by l.opr_time desc
+         order by l.opr_time ASC
     </select>
 
 
@@ -47,7 +47,7 @@
          l.opr_time as oprTime,
          l.operation as operation
          from sys_log l,user u where l.type = '2' and l.user_id = u.id
-         order by l.id desc
+         order by l.id ASC
     </select>
 
     <select id="getSystemLog" parameterType="String" resultType="com.lzy.pi.entity.VO.SysLogVO">
@@ -55,7 +55,7 @@
           l.operation as operation,
           l.opr_time as oprTime
          from sys_log l where l.type = '3'
-         order by l.opr_time desc
+         order by l.opr_time ASC
     </select>
 
 </mapper>
