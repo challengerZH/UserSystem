@@ -43,8 +43,8 @@
                 <c:forEach items="${LIST}" var="log">
                 <tr>
 
-                    <td>${log.id}</td>
-                    <td>${log.name}</td>
+                    <td>${log.remark}</td>
+                    <td>${log.operation}</td>
                     <td><fmt:formatDate value="${log.oprTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 </tr>
                 </c:forEach>

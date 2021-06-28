@@ -48,8 +48,8 @@
                 <tr>
 
                     <td>${log.id}</td>
-                    <td>${log.UserName}</td>
-                    <td>${log.UserPhone}</td>
+                    <td>${log.userName}</td>
+                    <td>${log.userPhone}</td>
                     <td>${log.moudle}</td>
                     <td>${log.operation}</td>
                     <td><fmt:formatDate value="${log.oprTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>

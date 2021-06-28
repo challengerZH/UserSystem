@@ -39,9 +39,9 @@
                 <li>
                     <span><a href="../system/staff/list" target="main">员工管理</a></span>
                 </li>
-                <li>
-                    <span><a href="../system/department/list" target="main">部门管理</a></span>
-                </li>
+                <%--<li>--%>
+                    <%--<span><a href="../system/department/list" target="main">部门管理</a></span>--%>
+                <%--</li>--%>
             </ul>
         </li>
         <li>

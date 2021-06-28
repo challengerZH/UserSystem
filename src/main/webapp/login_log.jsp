@@ -48,12 +48,13 @@
                 <tr>
 
                     <td>${log.id}</td>
-                    <td>${log.UserName}</td>
-                    <td>${log.UserPhone}</td>
+                    <td>${log.userName}</td>
+                    <td>${log.userPhone}</td>
                     <td>${log.officeName}</td>
                     <td>${log.post}</td>
                     <td><fmt:formatDate value="${log.oprTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                     <td>${log.operation}</td>
+
                 </tr>
                 </c:forEach>
             </table>

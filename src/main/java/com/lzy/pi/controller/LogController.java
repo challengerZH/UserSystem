@@ -1,6 +1,9 @@
 package com.lzy.pi.controller;
 
 import com.lzy.pi.entity.SysLog;
+import com.lzy.pi.entity.VO.LoginLogVO;
+import com.lzy.pi.entity.VO.OperationLogVO;
+import com.lzy.pi.entity.VO.SysLogVO;
 import com.lzy.pi.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,25 +23,22 @@ public class LogController {
 
     @RequestMapping("/operationLog")
     public void operationLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<SysLog> list = logService.getOperationLog();
+        List<OperationLogVO> list = logService.getOperationLog();
         request.setAttribute("LIST",list);
-        request.setAttribute("TYPE","操作");
         request.getRequestDispatcher("../operation_log.jsp").forward(request,response);
     }
 
     @RequestMapping("/loginLog")
     public void loginLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<SysLog> list = logService.getLoginLog();
+        List<LoginLogVO> list = logService.getLoginLog();
         request.setAttribute("LIST",list);
-        request.setAttribute("TYPE","登陆");
-        request.getRequestDispatcher("../operation_log.jsp").forward(request,response);
+        request.getRequestDispatcher("../login_log.jsp").forward(request,response);
     }
 
     @RequestMapping("/systemLog")
     public void systemLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<SysLog> list = logService.getSystemLog();
+        List<SysLogVO> list = logService.getSystemLog();
         request.setAttribute("LIST",list);
-        request.setAttribute("TYPE","系统");
-        request.getRequestDispatcher("../operation_log.jsp").forward(request,response);
+        request.getRequestDispatcher("../alarm_log.jsp").forward(request,response);
     }
 }

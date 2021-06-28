@@ -11,9 +11,9 @@ public class OperationLogVO {
     //主键id
     private int id;
     //操作人员
-    private String UserName;
+    private String userName;
     //操作人员手机号
-    private String UserPhone;
+    private String userPhone;
     //操作模块
     private String moudle;
     //操作类型
@@ -30,19 +30,19 @@ public class OperationLogVO {
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public String getUserPhone() {
-        return UserPhone;
+        return userPhone;
     }
 
     public void setUserPhone(String userPhone) {
-        UserPhone = userPhone;
+        this.userPhone = userPhone;
     }
 
     public String getMoudle() {
