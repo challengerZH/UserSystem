@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 
 public interface StaffService {
@@ -27,8 +28,7 @@ public interface StaffService {
 
     String uploadFile(HttpServletRequest request, HttpServletResponse response);
 
-    BaseResponse uploadImage(MultipartFile file);
+    BaseResponse uploadImage(File file);
 
     BaseResponse uploadLog(AddLogRequest request);
-
 }
