@@ -46,7 +46,8 @@
          u.post as post,
          l.opr_time as oprTime,
          l.operation as operation
-         from sys_log l,user u where l.type = '2' and l.user_id = u.id
+         from sys_log l left join user u on l.user_id = u.id
+         where l.type = '2'
          order by l.id ASC
     </select>
 

@@ -1,5 +1,6 @@
 package com.lzy.pi.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lzy.pi.base.BaseResponse;
 import com.lzy.pi.constants.BaseConstants;
 import com.lzy.pi.controller.param.AddLogRequest;
@@ -46,18 +47,32 @@ public class OtherSystemController {
     @RequestMapping("/v1.0/uploadImage")
     public BaseResponse uploadImage(HttpServletRequest request) {
         logger.info("==============进入OtherSystemController的uploadImage=================");
+        BaseResponse response = new BaseResponse(false, BaseConstants.FAULT_CODE);
         MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multipartHttpServletRequest.getFile("image");
         String fileName = file.getOriginalFilename();
         File file1 = new File(System.getProperty("java.io.tmpdir") + File.separator + fileName);
         try {
             FileUtils.copyInputStreamToFile(file.getInputStream(), file1);
-            return staffService.uploadImage(file1);
+            response = staffService.uploadImage(file1);
         } catch (IOException e) {
             logger.error("-------上传图片失败：{}---------", e.getMessage());
-            return new BaseResponse(false, BaseConstants.FAULT_CODE);
+            this.addLog(response);
+            return response;
+        }
+        this.addLog(response);
+        return response;
+    }
+
+    private void addLog(BaseResponse response) {
+        if(response.getSuccess()) {
+            JSONObject user = (JSONObject)response.getResult();
+            logUtil.addLoginLog(user.getString("id"), "人脸识别成功");
+        } else {
+            logUtil.addLoginLog(BaseConstants.DEFAULT_USER, "人脸识别失败");
         }
     }
+
 
     @RequestMapping("/v1.0/uploadLog")
     public BaseResponse uploadLog(@RequestBody AddLogRequest request) {

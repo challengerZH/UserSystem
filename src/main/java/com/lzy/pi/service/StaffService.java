@@ -4,9 +4,10 @@ package com.lzy.pi.service;
  * 业务层接口
  */
 import com.lzy.pi.base.BaseResponse;
+import com.lzy.pi.base.PageResult;
 import com.lzy.pi.controller.param.AddLogRequest;
+import com.lzy.pi.controller.param.QueryUserRequest;
 import com.lzy.pi.entity.User;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,7 @@ public interface StaffService {
 
     List<User> getAll();
 
-    List<User> queryByNameOrPhone(String name, String phone);
+    PageResult<User> queryUsers(QueryUserRequest request);
 
     String uploadFile(HttpServletRequest request, HttpServletResponse response);
 

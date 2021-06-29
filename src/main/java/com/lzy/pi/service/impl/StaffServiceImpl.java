@@ -1,9 +1,14 @@
 package com.lzy.pi.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lzy.pi.base.BaseResponse;
+import com.lzy.pi.base.PageResult;
 import com.lzy.pi.constants.BaseConstants;
 import com.lzy.pi.controller.param.AddLogRequest;
+import com.lzy.pi.controller.param.QueryUserRequest;
 import com.lzy.pi.dao.StaffDao;
 import com.lzy.pi.entity.Office;
 import com.lzy.pi.entity.User;
@@ -103,8 +108,23 @@ public class StaffServiceImpl implements StaffService {
         return departmentService.get(id);
     }
 
-    public List<User> queryByNameOrPhone(String name, String phone) {
-        return staffDao.queryByNameOrPhone(name, phone);
+    public PageResult<User> queryUsers(QueryUserRequest request) {
+        PageResult<User> pageResult = new PageResult<>();
+        PageHelper.startPage(request.getPageNum(), request.getPageSize());
+        List<User> list;
+        try {
+            list = staffDao.queryUsers(request);
+        } finally {
+            PageHelper.clearPage();
+        }
+
+        PageInfo<User> pageInfo = new PageInfo(list, request.getPageSize());
+        pageResult.setSuccess(true);
+        pageResult.setPageNum(request.getPageNum());
+        pageResult.setPageSize(request.getPageSize());
+        pageResult.setResult(pageInfo.getList());
+        pageResult.setCount(pageInfo.getTotal());
+        return pageResult;
     }
 
     /**
@@ -141,28 +161,28 @@ public class StaffServiceImpl implements StaffService {
         map.put("return_landmark", "1");
         map.put("return_attributes", "gender,age,smiling,headpose,facequality,blur,eyestatus,emotion,ethnicity,beauty,mouthstatus,eyegaze,skinstatus");
         List<User> userList = staffDao.selectAll();
-        if(CollectionUtils.isEmpty(userList)) {
+        if (CollectionUtils.isEmpty(userList)) {
             return response;
         }
         for (User u : userList) {
-            if(StringUtil.isBlank(u.getInfo())) {
+            if (StringUtil.isBlank(u.getInfo())) {
                 continue;
             }
             String imageName = u.getInfo().substring(u.getInfo().lastIndexOf('/') + 1);
-            logger.info("--------图片1：{}， 图片2{}----------", file.getAbsolutePath(),resourceLocations + imageName);
+            logger.info("--------图片1：{}， 图片2{}----------", file.getAbsolutePath(), resourceLocations + imageName);
             byteMap.put("image_file2", getBytesFromFile(new File(resourceLocations + imageName)));
-            try{
+            try {
                 byte[] resByte = post(URL, map, byteMap);
                 String result = new String(resByte);
                 logger.info("人脸检测--结果：{}", result);
                 double percentage = JSONObject.parseObject(result).getDouble("confidence");
-                if(!ObjectUtils.isEmpty(percentage) && percentage >= MATCHING_DEGREE) {
+                if (!ObjectUtils.isEmpty(percentage) && percentage >= MATCHING_DEGREE) {
                     response.setSuccess(true);
                     response.setResult(JSONObject.toJSON(u));
-                  response.setResultCode(BaseConstants.SUCCESS_CODE);
-                  break;
+                    response.setResultCode(BaseConstants.SUCCESS_CODE);
+                    break;
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 logger.error("人脸识别异常：{}", e.getMessage());
             }
         }
@@ -213,7 +233,7 @@ public class StaffServiceImpl implements StaffService {
         conne.setRequestProperty("user-agent", "Mozilla/4.0 (compatible;MSIE 6.0;Windows NT 5.1;SV1)");
         DataOutputStream obos = new DataOutputStream(conne.getOutputStream());
         Iterator iter = map.entrySet().iterator();
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             Map.Entry<String, String> entry = (Map.Entry) iter.next();
             String key = entry.getKey();
             String value = entry.getValue();
@@ -223,9 +243,9 @@ public class StaffServiceImpl implements StaffService {
             obos.writeBytes("\r\n");
             obos.writeBytes(value + "\r\n");
         }
-        if(fileMap != null && fileMap.size() > 0){
+        if (fileMap != null && fileMap.size() > 0) {
             Iterator fileIter = fileMap.entrySet().iterator();
-            while(fileIter.hasNext()){
+            while (fileIter.hasNext()) {
                 Map.Entry<String, byte[]> fileEntry = (Map.Entry<String, byte[]>) fileIter.next();
                 obos.writeBytes("--" + boundaryString + "\r\n");
                 obos.writeBytes("Content-Disposition: form-data; name=\"" + fileEntry.getKey()
@@ -241,37 +261,38 @@ public class StaffServiceImpl implements StaffService {
         obos.close();
         InputStream ins = null;
         int code = conne.getResponseCode();
-        try{
-            if(code == 200){
+        try {
+            if (code == 200) {
                 ins = conne.getInputStream();
-            }else{
+            } else {
                 ins = conne.getErrorStream();
             }
-        }catch (SSLException e){
+        } catch (SSLException e) {
             logger.error("请求图片识别对别异常：{}", e.getMessage());
             return new byte[0];
         }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buff = new byte[4096];
         int len;
-        while((len = ins.read(buff)) != -1){
+        while ((len = ins.read(buff)) != -1) {
             baos.write(buff, 0, len);
         }
         byte[] bytes = baos.toByteArray();
         ins.close();
         return bytes;
     }
+
     private static String getBoundary() {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        for(int i = 0; i < 32; ++i) {
+        for (int i = 0; i < 32; ++i) {
             sb.append("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-".charAt(random.nextInt("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_".length())));
         }
         return sb.toString();
     }
 
 
-    private static String encode(String value) throws Exception{
+    private static String encode(String value) throws Exception {
         return URLEncoder.encode(value, "UTF-8");
     }
 

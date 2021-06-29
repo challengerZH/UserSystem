@@ -4,6 +4,10 @@ package com.lzy.pi.controller;
  * 实现表现层
  */
 
+import com.lzy.pi.base.BaseResponse;
+import com.lzy.pi.base.PageResult;
+import com.lzy.pi.constants.BaseConstants;
+import com.lzy.pi.controller.param.QueryUserRequest;
 import com.lzy.pi.entity.Office;
 import com.lzy.pi.entity.User;
 import com.lzy.pi.entity.VO.UserVO;
@@ -16,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,18 +59,17 @@ public class StaffController {
         request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
     }
     @RequestMapping("/query")
-    public void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public BaseResponse<PageResult<User>> query(@RequestBody QueryUserRequest request, HttpServletRequest httpServletRequest) {
+        BaseResponse<PageResult<User>> response = new BaseResponse<>(true, BaseConstants.SUCCESS_CODE);
         logger.info("========进入StaffController的方法：/query===========");
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        List<User> list = staffService.queryByNameOrPhone(name, phone);
-        request.setAttribute("LIST", list);
-        HttpSession session = request.getSession();
+        PageResult<User> list = staffService.queryUsers(request);
+        HttpSession session = httpServletRequest.getSession();
         User sessionUser = (User)session.getAttribute("USER");
         if(sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "搜索");
         }
-        request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
+        response.setResult(list);
+       return response;
     }
 
     @RequestMapping("/toAdd")

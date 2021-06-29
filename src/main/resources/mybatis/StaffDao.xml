@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lzy.pi.dao.StaffDao">
     <resultMap id="resultMap" type="com.lzy.pi.entity.User">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <id column="office_id" jdbcType="INTEGER" property="officeId" />
-        <id column="office_name" jdbcType="VARCHAR" property="officeName" />
-        <result column="phone" jdbcType="VARCHAR" property="phone" />
-        <result column="password" jdbcType="VARCHAR" property="password" />
-        <result column="status" jdbcType="VARCHAR" property="status" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="post" jdbcType="VARCHAR" property="post" />
-        <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
-        <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-        <result column="info" jdbcType="VARCHAR" property="info" />
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="office_id" jdbcType="INTEGER" property="officeId"/>
+        <id column="office_name" jdbcType="VARCHAR" property="officeName"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="post" jdbcType="VARCHAR" property="post"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="info" jdbcType="VARCHAR" property="info"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.lzy.pi.entity.User" useGeneratedKeys="true">
@@ -77,18 +77,20 @@
     <select id="selectById" parameterType="Integer" resultMap="resultMap">
         select * from user where id=#{id}
     </select>
+
+
     <select id="selectAll" resultMap="resultMap">
         select * from user;
     </select>
-    <select id="queryByNameOrPhone" parameterType="String" resultMap="resultMap">
+
+
+    <select id="queryUsers" parameterType="com.lzy.pi.controller.param.QueryUserRequest" resultMap="resultMap">
         select * from user where
         1=1
-        <if test="name != null">
-          and  name = #{name,jdbcType=VARCHAR}
+        <if test="keyWord != null and keyWord != ''">
+            and (name = #{keyWord,jdbcType=VARCHAR} or phone = #{keyWord,jdbcType=VARCHAR} )
         </if>
-        <if test="phone != null">
-          and  phone = #{phone,jdbcType=VARCHAR}
-        </if>
+        order by id ASC
     </select>
 
 </mapper>

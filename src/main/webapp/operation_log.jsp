@@ -36,7 +36,6 @@
             <!--列表-->
             <table cellpadding="0" cellspacing="0" class="list_hy">
                 <tr>
-                    <th scope="col">序号</th>
                     <th scope="col">姓名</th>
                     <th scope="col">手机号</th>
                     <th scope="col">操作菜单</th>
@@ -47,7 +46,6 @@
                 <c:forEach items="${LIST}" var="log">
                 <tr>
 
-                    <td>${log.id}</td>
                     <td>${log.userName}</td>
                     <td>${log.userPhone}</td>
                     <td>${log.moudle}</td>

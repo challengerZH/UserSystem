@@ -1,6 +1,7 @@
 package com.lzy.pi.dao;
 
 
+import com.lzy.pi.controller.param.QueryUserRequest;
 import com.lzy.pi.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -16,5 +17,5 @@ public interface StaffDao {
     void update(User user);
     User selectById(Integer id);
     List<User>selectAll();
-    List<User> queryByNameOrPhone(@Param("name") String name,@Param("phone") String phone);
+    List<User> queryUsers(QueryUserRequest request);
 }
