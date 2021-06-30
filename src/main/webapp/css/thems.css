@@ -99,6 +99,18 @@
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 }
+.input-btn{
+	display:inline-block;
+	*display:inline;
+	zoom:1;
+	width:76px;
+	height:36px;
+	text-align:center;
+	line-height:36px;
+	color:#000;
+	vertical-align:middle;
+	margin-left:5px;
+}
 .btn{
 	display:inline-block;
 	*display:inline;

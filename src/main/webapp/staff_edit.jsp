@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -7,10 +11,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=8">
     <title>编辑员工</title>
-    <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/thems.css">
-    <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/thems.css">
+    <script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript">
         $(function () {

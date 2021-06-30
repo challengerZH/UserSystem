@@ -1,14 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>员工管理</title>
-    <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/thems.css">
-    <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/thems.css">
+    <script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript">
         $(function(){
             //自适应屏幕宽度
@@ -19,6 +23,13 @@
 
             var search_w = $(window).width()-40;
             $('.search').css('width',search_w+'px');
+
+            // 搜索
+            $("#searchBtn").bind('click', searchUser)
+            $("#addBtn").bind('click',function(){
+                console.log("<%=basePath%>staff/toAdd")
+                window.location.href= "<%=basePath%>staff/toAdd"
+            })
         });
 
         function searchUser() {
@@ -40,14 +51,11 @@
         }
 
 
-
-
-
     </script>
     <!--框架高度设置-->
 </head>
 
-<body onLoad="Resize();">
+<body>
 <div id="right_ctn">
     <div class="right_m">
         <div class="hy_list">
@@ -63,9 +71,8 @@
                     <span style="margin-left: 3%; font-size: 15px;">手机号：</span><input  id="searchPhone" type="text" class="mysearch" placeholder="请输入手机号..." value="" />
                 </div>
                 <div class="r_foot_m">
-                    <a href="" id="searchBtn" class="btn" onclick="searchUser();" style="float:left; margin-top: 13px;margin-bottom: 3px;">搜索</a>
-                    <a href="../staff/toAdd" class="btn" style="margin-left: 2%;margin-top: 13px;">添加</a>
-
+                    <input type="button" value="搜索" id="searchBtn" class="input-btn" />
+                    <input type="button" value="添加" id="addBtn" class="input-btn" />
                 </div>
             </div>
             <!--列表-->
