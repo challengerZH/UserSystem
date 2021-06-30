@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lzy.pi.base.BaseResponse;
-import com.lzy.pi.base.PageResult;
 import com.lzy.pi.constants.BaseConstants;
 import com.lzy.pi.controller.param.AddLogRequest;
 import com.lzy.pi.controller.param.QueryUserRequest;
@@ -66,13 +65,27 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private LogUtil logUtil;
 
-    public void add(User user) {
+    public BaseResponse add(User user) {
+        BaseResponse response = new BaseResponse(true, BaseConstants.SUCCESS_CODE);
         //默认状态正常、初始密码123456
         user.setPassword("123456");
         user.setStatus("正常");
         Office office = this.getOffice(user.getOfficeId());
+        QueryUserRequest checkRequest = new QueryUserRequest();
+        checkRequest.setKeyWord(user.getPhone());
+        checkRequest.setPageNum(1);
+        checkRequest.setPageSize(9999);
+        List<User> checkUser = staffDao.queryUsers(checkRequest);
+        if(!CollectionUtils.isEmpty(checkUser)) {
+            logger.error("此用户：{}，已经存在", JSONObject.toJSON(user));
+            response.setSuccess(false);
+            response.setResultCode(BaseConstants.FAULT_CODE);
+            response.setResult("此用户已经存在");
+            return response;
+        }
         user.setOfficeName(office.getName());
         staffDao.insert(user);
+        return response;
     }
 
     public void remove(Integer id) {

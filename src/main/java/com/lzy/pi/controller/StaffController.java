@@ -6,7 +6,6 @@ package com.lzy.pi.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.lzy.pi.base.BaseResponse;
-import com.lzy.pi.base.PageResult;
 import com.lzy.pi.constants.BaseConstants;
 import com.lzy.pi.controller.param.QueryUserRequest;
 import com.lzy.pi.entity.Office;
@@ -53,24 +52,25 @@ public class StaffController {
         List<User> list = staffService.getAll();
         request.setAttribute("LIST", list);
         HttpSession session = request.getSession();
-        User sessionUser = (User)session.getAttribute("USER");
-        if(sessionUser != null) {
+        User sessionUser = (User) session.getAttribute("USER");
+        if (sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "查询");
         }
         request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
     }
+
     @RequestMapping("/query")
     public BaseResponse<PageInfo<User>> query(@RequestBody QueryUserRequest request, HttpServletRequest httpServletRequest) {
         BaseResponse<PageInfo<User>> response = new BaseResponse<>(true, BaseConstants.SUCCESS_CODE);
         logger.info("========进入StaffController的方法：/query===========");
         PageInfo<User> pageInfo = staffService.queryUsers(request);
         HttpSession session = httpServletRequest.getSession();
-        User sessionUser = (User)session.getAttribute("USER");
-        if(sessionUser != null) {
+        User sessionUser = (User) session.getAttribute("USER");
+        if (sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "搜索");
         }
         response.setResult(pageInfo);
-       return response;
+        return response;
     }
 
     @RequestMapping("/toAdd")
@@ -82,17 +82,18 @@ public class StaffController {
     }
 
     @RequestMapping("/add")
-    public void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public BaseResponse add(HttpServletRequest request) {
         logger.info("========进入StaffController的方法：/add===========");
         User user = new User();
         this.setUser(user, request);
-        staffService.add(user);
+        BaseResponse response1 = staffService.add(user);
+
         HttpSession session = request.getSession();
-        User sessionUser = (User)session.getAttribute("USER");
-        if(sessionUser != null) {
+        User sessionUser = (User) session.getAttribute("USER");
+        if (sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "新增");
         }
-        response.sendRedirect("../staff/list");
+        return response1;
     }
 
     @RequestMapping("/toEdit")
@@ -115,21 +116,21 @@ public class StaffController {
         this.setUser(user, request);
         staffService.edit(user);
         HttpSession session = request.getSession();
-        User sessionUser = (User)session.getAttribute("USER");
-        if(sessionUser != null) {
+        User sessionUser = (User) session.getAttribute("USER");
+        if (sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "修改");
         }
         response.sendRedirect("../staff/list");
     }
 
     @RequestMapping("/remove")
-    public void remove(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+    public void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("========进入StaffController的方法：/remove===========");
         Integer id = Integer.parseInt(request.getParameter("id"));
         staffService.remove(id);
         HttpSession session = request.getSession();
-        User sessionUser = (User)session.getAttribute("USER");
-        if(sessionUser != null) {
+        User sessionUser = (User) session.getAttribute("USER");
+        if (sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "删除");
         }
         response.sendRedirect("../staff/list");
@@ -143,15 +144,15 @@ public class StaffController {
         UserVO userVO = this.setTimeStr(user);
         request.setAttribute("OBJ", userVO);
         HttpSession session = request.getSession();
-        User sessionUser = (User)session.getAttribute("USER");
-        if(sessionUser != null) {
+        User sessionUser = (User) session.getAttribute("USER");
+        if (sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "详情");
         }
         request.getRequestDispatcher("../staff_detail.jsp").forward(request, response);
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(HttpServletRequest request, HttpServletResponse response)  {
+    public String uploadFile(HttpServletRequest request, HttpServletResponse response) {
         logger.info("========进入StaffController的方法：/uploadFile===========");
         return staffService.uploadFile(request, response);
     }

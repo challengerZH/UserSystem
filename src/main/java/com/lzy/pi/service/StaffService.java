@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.List;
 
 public interface StaffService {
-    void add(User user);
+    BaseResponse add(User user);
 
     void remove(Integer id);
 

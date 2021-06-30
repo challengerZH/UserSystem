@@ -25,7 +25,6 @@
 
         function uplodeFile() {
             var file=$('#Agreement_file')[0].files[0];
-            console.log(file);
             var form = new FormData();
             form.append('img',file);
             $.ajax({
@@ -37,10 +36,16 @@
                 success: function (data) {
                     console.log(data);
                     var imageURL=data;
-                    var paths = imageURL.split('\\');
-                    var showUrl = "../upload/" + paths[paths.length-1];
+                    var paths;
+                    if(imageURL.indexOf('/') != -1) {
+                        paths  = imageURL.split('/');
+                    } else {
+                        paths  = imageURL.split('\\');
+                    }
+
+                    imageURL  = "../upload/" + paths[paths.length-1];
                     $('#pImg').attr('src',imageURL);
-                    $('#info').attr('value',showUrl);
+                    $('#info').attr('value',imageURL);
                 }
             })
         }
