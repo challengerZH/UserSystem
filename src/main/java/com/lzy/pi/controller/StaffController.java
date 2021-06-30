@@ -4,6 +4,7 @@ package com.lzy.pi.controller;
  * 实现表现层
  */
 
+import com.github.pagehelper.PageInfo;
 import com.lzy.pi.base.BaseResponse;
 import com.lzy.pi.base.PageResult;
 import com.lzy.pi.constants.BaseConstants;
@@ -59,16 +60,16 @@ public class StaffController {
         request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
     }
     @RequestMapping("/query")
-    public BaseResponse<PageResult<List<User>>> query(@RequestBody QueryUserRequest request, HttpServletRequest httpServletRequest) {
-        BaseResponse<PageResult<List<User>>> response = new BaseResponse<>(true, BaseConstants.SUCCESS_CODE);
+    public BaseResponse<PageInfo<User>> query(@RequestBody QueryUserRequest request, HttpServletRequest httpServletRequest) {
+        BaseResponse<PageInfo<User>> response = new BaseResponse<>(true, BaseConstants.SUCCESS_CODE);
         logger.info("========进入StaffController的方法：/query===========");
-        PageResult<List<User>> list = staffService.queryUsers(request);
+        PageInfo<User> pageInfo = staffService.queryUsers(request);
         HttpSession session = httpServletRequest.getSession();
         User sessionUser = (User)session.getAttribute("USER");
         if(sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "搜索");
         }
-        response.setResult(list);
+        response.setResult(pageInfo);
        return response;
     }
 

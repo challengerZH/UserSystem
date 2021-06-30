@@ -3,8 +3,8 @@ package com.lzy.pi.service;
 /**
  * 业务层接口
  */
+import com.github.pagehelper.PageInfo;
 import com.lzy.pi.base.BaseResponse;
-import com.lzy.pi.base.PageResult;
 import com.lzy.pi.controller.param.AddLogRequest;
 import com.lzy.pi.controller.param.QueryUserRequest;
 import com.lzy.pi.entity.User;
@@ -25,7 +25,7 @@ public interface StaffService {
 
     List<User> getAll();
 
-    PageResult<List<User>> queryUsers(QueryUserRequest request);
+    PageInfo<User> queryUsers(QueryUserRequest request);
 
     String uploadFile(HttpServletRequest request, HttpServletResponse response);
 

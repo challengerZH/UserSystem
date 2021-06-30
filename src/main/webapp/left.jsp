@@ -57,7 +57,7 @@
                     <span><a href="../system/log/loginLog" target="main">登陆日志</a></span>
                 </li>
                 <li>
-                    <span><a href="../system/log/systemLog" target="main">系统日志</a></span>
+                    <span><a href="../system/log/systemLog" target="main">告警日志</a></span>
                 </li>
             </ul>
         </li>

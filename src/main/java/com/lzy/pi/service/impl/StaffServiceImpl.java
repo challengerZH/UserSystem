@@ -97,8 +97,7 @@ public class StaffServiceImpl implements StaffService {
         return departmentService.get(id);
     }
 
-    public PageResult<List<User>> queryUsers(QueryUserRequest request) {
-        PageResult<List<User>> pageResult = new PageResult<>();
+    public  PageInfo<User> queryUsers(QueryUserRequest request) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
         List<User> list;
         try {
@@ -107,14 +106,9 @@ public class StaffServiceImpl implements StaffService {
             PageHelper.clearPage();
         }
 
-        PageInfo<List<User>> pageInfo = new PageInfo(list, request.getPageSize());
-        pageResult.setSuccess(true);
-        pageResult.setPageNum(request.getPageNum());
-        pageResult.setPageSize(request.getPageSize());
-        pageResult.setResult(pageInfo.getList());
-
-        logger.info("response:{}",JSONObject.toJSON(pageResult));
-        return pageResult;
+        PageInfo<User> pageInfo = new PageInfo(list, request.getPageSize());
+        logger.info("response:{}",JSONObject.toJSON(pageInfo));
+        return  pageInfo;
     }
 
     /**
