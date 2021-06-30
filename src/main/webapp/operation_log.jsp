@@ -37,6 +37,15 @@
                 <span class="name">操作日志</span>
             </div>
             <div class="space_hx">&nbsp;</div>
+            <div class="r_foot">
+                <div class="r_foot_m">
+                    <span style="margin-left: 1%; font-size: 15px;">姓  名：</span><input id="searchName" type="text" class="mysearch" placeholder="请输入姓名..." value="" />
+                    <%--                    <span style="margin-left: 3%; font-size: 15px;">手机号：</span><input  id="searchPhone" type="text" class="mysearch" placeholder="请输入手机号..." value="" />--%>
+                </div>
+                <div class="r_foot_m">
+                    <a href="" id="searchBtn" class="btn" onclick="searchUser();" style="float:left; margin-top: 13px;margin-bottom: 3px;">搜索</a>
+                </div>
+            </div>
             <!--列表-->
             <table cellpadding="0" cellspacing="0" class="list_hy">
                 <tr>
@@ -45,11 +54,9 @@
                     <th scope="col">操作菜单</th>
                     <th scope="col">操作类型</th>
                     <th scope="col">操作时间</th>
-
                 </tr>
                 <c:forEach items="${LIST}" var="log">
                 <tr>
-
                     <td>${log.userName}</td>
                     <td>${log.userPhone}</td>
                     <td>${log.moudle}</td>
