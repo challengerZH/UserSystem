@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,7 +13,7 @@
 
 <body>
 <div class="head clearfix">
-    <div class="curr"><span>欢迎您，${USER.name}[ <a href="logout.do" target="_top">退出</a> ]</span></div>
+    <div class="curr"><span>欢迎您，${USER.name}[ <a href="<%=basePath%>self/logout" target="_top">退出</a> ]</span></div>
 </div>
 </body>
 </html>
