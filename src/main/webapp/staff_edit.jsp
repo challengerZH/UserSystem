@@ -43,7 +43,6 @@
 
         function uplodeFile() {
             var file=$('#Agreement_file')[0].files[0];
-            console.log(file);
             var form = new FormData();
             form.append('img',file);
             $.ajax({
