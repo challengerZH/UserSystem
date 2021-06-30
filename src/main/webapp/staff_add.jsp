@@ -16,16 +16,11 @@
     <script type="text/javascript" src="<%=basePath%>js/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript">
         $(function(){
-
-
             var main_h = $(window).height();
             $('.hy_list').css('height',main_h-45+'px');
-
             var main_w = $(window).width();
             $('.xjhy').css('width',main_w-40+'px');
-
         });
-
         function uplodeFile() {
             var file=$('#Agreement_file')[0].files[0];
             var form = new FormData();
@@ -45,10 +40,44 @@
                     } else {
                         paths  = imageURL.split('\\');
                     }
-
                     imageURL  = "../upload/" + paths[paths.length-1];
                     $('#pImg').attr('src',imageURL);
                     $('#info').attr('value',imageURL);
+                }
+            })
+        }
+        function saveUserInfo(){
+            // alert('sdfgdgdgs')
+            let name = $('.hypz .name').val();
+            let phone = $('.hypz .phone').val();
+            let officeId = $('.hypz .officeId').find("option:selected").val();
+            let post = $('.hypz .post').val();
+            let startTime = $('.hypz .startTime').val();
+            let endTime = $('.hypz .endTime').val();
+            let data={
+                name,
+                phone,
+                officeId,
+                post,
+                startTime,
+                endTime
+            }
+            console.log(data)
+            $.ajax({
+                url: '/system/staff/add',
+                data:data,
+                type:'POST',
+                success:function (res){
+                    if(res.success){
+                        alert('添加成功')
+                        history.go(-1);
+                        self.location=document.referrer;
+                    }else {
+                        alert(res.result)
+                    }
+                },
+                fail:function (res){
+                    alert(res.result)
                 }
             })
         }
@@ -70,28 +99,27 @@
                 <span class="name">添加员工</span>
             </div>
             <div class="space_hx">&nbsp;</div>
-            <form action="../staff/add" method="post" name="addForm">
                 <div class="xjhy">
                     <!--高级配置-->
                     <ul class="hypz gjpz clearfix">
                         <li class="clearfix">
                             <span class="title">姓名：</span>
                             <div class="li_r">
-                                <input class="chang" name="name" type="text"/>
+                                <input class="name" name="name" type="text"/>
                                 <i>*</i>
                             </div>
                         </li>
                         <li class="clearfix">
                             <span class="title">手机号：</span>
                             <div class="li_r">
-                                <input class="chang" name="phone" type="text"/>
+                                <input class="phone" name="phone" type="text"/>
                                 <i>*</i>
                             </div>
                         </li>
                         <li class="clearfix">
                             <span class="title">所属公司：</span>
                             <div class="li_r">
-                                <select name="officeId">
+                                <select class="officeId" name="officeId">
                                     <c:forEach items="${DLIST}" var="dep">
                                         <c:if test="${OBJ.officeId==dep.id}">
                                             <option value="${dep.id}" selected="selected">${dep.name}</option>
@@ -107,14 +135,14 @@
                         <li class="clearfix">
                             <span class="title">职务：</span>
                             <div class="li_r">
-                                <input class="chang" name="post" type="text" value="${OBJ.post}"/>
+                                <input class="post" name="post" type="text" value="${OBJ.post}"/>
                                 <i>*</i>
                             </div>
                         </li>
                         <li class="clearfix">
                             <span class="title">有效期开始时间：</span>
                             <div class="li_r">
-                                <input id="d11" class="chang" type="text" name="startTime" onclick="WdatePicker()"
+                                <input id="d11" class="startTime" type="text" name="startTime" onclick="WdatePicker()"
                                        value="${OBJ.startTimeStr}"/>
                                 <i>*</i>
                             </div>
@@ -122,7 +150,7 @@
                         <li class="clearfix">
                             <span class="title">有效期结束时间：</span>
                             <div class="li_r">
-                                <input id="d12" class="chang" type="text" name="endTime" onclick="WdatePicker()" value="${OBJ.endTimeStr}"/>
+                                <input id="d12" class="endTime" type="text" name="endTime" onclick="WdatePicker()" value="${OBJ.endTimeStr}"/>
                                 <i>*</i>
                             </div>
                         </li>
@@ -138,12 +166,11 @@
                         </li>
                         <li class="tj_btn">
                             <a href="javascript:history.go(-1);" class="back">返回</a>
-                            <a href="javascript:addForm.submit();">保存</a>
+                            <a href="javascript:;" onclick="saveUserInfo()">保存</a>
                         </li>
                     </ul>
                     <!--高级配置-->
                 </div>
-            </form>
         </div>
     </div>
 </div>
