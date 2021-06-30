@@ -59,4 +59,47 @@
          order by l.opr_time ASC
     </select>
 
+
+
+    <select id="queryOperationLog" parameterType="com.lzy.pi.controller.param.QueryLogRequest" resultType="com.lzy.pi.entity.VO.OperationLogVO">
+        select l.id as id,
+         u.name as userName,
+         u.phone as userPhone,
+         l.moudle as moudle,
+         l.operation as operation,
+         l.opr_time as oprTime
+         from sys_log l,user u where l.type = '1' and l.user_id = u.id
+        <if test="keyWord != null and keyWord != ''">
+            and (u.name = #{keyWord,jdbcType=VARCHAR} or u.phone = #{keyWord,jdbcType=VARCHAR})
+        </if>
+         order by l.opr_time ASC
+    </select>
+
+
+    <select id="queryLoginLog" parameterType="com.lzy.pi.controller.param.QueryLogRequest" resultType="com.lzy.pi.entity.VO.LoginLogVO">
+        select l.id as id,
+         u.name as userName,
+         u.phone as userPhone,
+         u.office_name as officeName,
+         u.post as post,
+         l.opr_time as oprTime,
+         l.operation as operation
+         from sys_log l left join user u on l.user_id = u.id
+         where l.type = '2'
+         <if test="keyWord != null and keyWord != ''">
+            and (u.name = #{keyWord,jdbcType=VARCHAR} or u.phone = #{keyWord,jdbcType=VARCHAR} )
+        </if>
+         order by l.id ASC
+    </select>
+
+ <select id="querySystemLog" parameterType="com.lzy.pi.controller.param.QueryLogRequest" resultType="com.lzy.pi.entity.VO.SysLogVO">
+       select l.remark as remark,
+          l.operation as operation,
+          l.opr_time as oprTime
+         from sys_log l where l.type = '3'
+         order by l.opr_time ASC
+    </select>
+
+
+
 </mapper>
