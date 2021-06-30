@@ -16,19 +16,25 @@
     <script type="text/javascript">
         $(function(){
             $('.level-1').click(function(){
-                console.log('do click')
                 if($(this).parent().hasClass('now')){
                     $(this).parent().removeClass('now');
                 } else {
-                    $(this).siblings('li').removeClass('now');
+                    $('.level-1').each(function(){
+                        $(this).parent().removeClass('now');
+                    })
                     $(this).parent().addClass('now');
+
                 }
+
             });
 
-            // $('.erji li').click(function(){
-            //     $(this).siblings('li').removeClass('now_li');
-            //     $(this).addClass('now_li');
-            // });
+            $('.erji li').click(function(){
+                $('.erji li').each(function(){
+                    $(this).removeClass('now_li');
+                })
+                $(this).addClass('now_li');
+                $(this).find("a")[0].click()
+            });
 
             var main_h = $(window).height();
             $('.sidenav').css('height',main_h+'px');
@@ -46,7 +52,7 @@
                 <i>&nbsp;</i>
             </div>
             <ul class="erji">
-                <li>
+                <li class="now_li">
                     <span><a href="../system/staff/list" target="main">员工管理</a></span>
                 </li>
                 <%--<li>--%>
@@ -56,18 +62,18 @@
         </li>
         <li >
             <div class="level-1 nav_m">
-                <span><a>日志信息</a></span>
+                <span><a>日志管理</a></span>
                 <i>&nbsp;</i>
             </div>
             <ul class="erji">
                 <li>
-                    <span><a href="../system/log/operationLog" target="main">操作日志</a></span>
+                    <span><a href="../system/log/loginLog" target="main">门禁日志查询</a></span>
                 </li>
                 <li>
-                    <span><a href="../system/log/loginLog" target="main">登陆日志</a></span>
+                    <span><a href="../system/log/systemLog" target="main">告警日志查询</a></span>
                 </li>
                 <li>
-                    <span><a href="../system/log/systemLog" target="main">告警日志</a></span>
+                    <span><a href="../system/log/operationLog" target="main">系统日志查询</a></span>
                 </li>
             </ul>
         </li>

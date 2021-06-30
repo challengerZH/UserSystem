@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>操作日志</title>
+    <title>系统日志</title>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/common.css"/>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/thems.css">
@@ -34,7 +34,7 @@
     <div class="right_m">
         <div class="hy_list">
             <div class="box_t">
-                <span class="name">操作日志</span>
+                <span class="name">系统日志</span>
             </div>
             <div class="space_hx">&nbsp;</div>
             <!--列表-->

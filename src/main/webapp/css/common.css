@@ -110,8 +110,17 @@ img{
 	height:30px;
 	line-height:30px;
 	border:0px;
+}
+.sidenav li .erji li span{
+	padding-left: 20px;
+}
+.sidenav li .erji .now_li{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	border:0px;
 	background-image:url(../images/icon4.png);
-	background-position:18px center;
+	background-position:40px center;
 	background-repeat:no-repeat;
 }
 .sidenav li.now .erji li{
@@ -119,10 +128,6 @@ img{
 }
 .sidenav li.now .erji li:hover , .sidenav li.now .erji li.now_li {
 	background-color:#E5E5E5;
-}
-.sidenav li .erji li a{
-	font-size:12px;
-	color:#434343;
 }
 .sidenav li .erji li span{
 	display:block;
