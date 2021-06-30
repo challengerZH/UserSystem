@@ -21,7 +21,8 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-
+logging:
+  config: classpath:log4j2.xml
 
 mybatis:
   mapper-locations: classpath:mybatis/*.xml

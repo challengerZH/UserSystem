@@ -1,7 +1,6 @@
 package com.lzy.pi.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lzy.pi.base.BaseResponse;
@@ -17,17 +16,7 @@ import com.lzy.pi.service.StaffService;
 import com.lzy.pi.utils.DateUtil;
 import com.lzy.pi.utils.LogUtil;
 import com.lzy.pi.utils.StringUtil;
-import com.lzy.pi.websocket.WebSocketServer;
 import org.apache.commons.io.FileUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,8 +97,8 @@ public class StaffServiceImpl implements StaffService {
         return departmentService.get(id);
     }
 
-    public PageResult<User> queryUsers(QueryUserRequest request) {
-        PageResult<User> pageResult = new PageResult<>();
+    public PageResult<List<User>> queryUsers(QueryUserRequest request) {
+        PageResult<List<User>> pageResult = new PageResult<>();
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
         List<User> list;
         try {
@@ -118,12 +107,13 @@ public class StaffServiceImpl implements StaffService {
             PageHelper.clearPage();
         }
 
-        PageInfo<User> pageInfo = new PageInfo(list, request.getPageSize());
+        PageInfo<List<User>> pageInfo = new PageInfo(list, request.getPageSize());
         pageResult.setSuccess(true);
         pageResult.setPageNum(request.getPageNum());
         pageResult.setPageSize(request.getPageSize());
         pageResult.setResult(pageInfo.getList());
-        pageResult.setCount(pageInfo.getTotal());
+
+        logger.info("response:{}",JSONObject.toJSON(pageResult));
         return pageResult;
     }
 

@@ -25,7 +25,7 @@ public interface StaffService {
 
     List<User> getAll();
 
-    PageResult<User> queryUsers(QueryUserRequest request);
+    PageResult<List<User>> queryUsers(QueryUserRequest request);
 
     String uploadFile(HttpServletRequest request, HttpServletResponse response);
 

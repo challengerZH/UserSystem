@@ -23,17 +23,18 @@
 
         function searchUser() {
             var name=document.getElementById('searchName').value;
-            var phone=document.getElementById('searchPhone').value;
-            console.log("name:" +name + ", phone:" + phone);
-            // var form = new FormData();
-            // form.append('name',name);
-            // form.append('phone',phone);
+            var param = {
+                'keyWord':name.toString(),
+                'pageNum':1,
+                'pagSize':1
+            }
             $.ajax({
                 type: 'POST',
                 url: '../staff/query',
-                data: {"name":name,"phone":phone},
+                contentType:'application/json',
+                data: JSON.stringify(param),
                 success: function (data) {
-
+                    console.log(data);
                 }
             })
         }

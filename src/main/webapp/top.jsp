@@ -9,7 +9,7 @@
 
 <body>
 <div class="head clearfix">
-    <div class="curr"><span>欢迎您，${USER.name}[ <a href="logout.do" target="_top">退出</a> ]</span></div>
+    <div class="curr"><span>欢迎您，${USER.name}[ <a href="../system/self/logout" target="_top">退出</a> ]</span></div>
 </div>
 </body>
 </html>

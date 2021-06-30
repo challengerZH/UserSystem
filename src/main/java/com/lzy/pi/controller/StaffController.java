@@ -59,10 +59,10 @@ public class StaffController {
         request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
     }
     @RequestMapping("/query")
-    public BaseResponse<PageResult<User>> query(@RequestBody QueryUserRequest request, HttpServletRequest httpServletRequest) {
-        BaseResponse<PageResult<User>> response = new BaseResponse<>(true, BaseConstants.SUCCESS_CODE);
+    public BaseResponse<PageResult<List<User>>> query(@RequestBody QueryUserRequest request, HttpServletRequest httpServletRequest) {
+        BaseResponse<PageResult<List<User>>> response = new BaseResponse<>(true, BaseConstants.SUCCESS_CODE);
         logger.info("========进入StaffController的方法：/query===========");
-        PageResult<User> list = staffService.queryUsers(request);
+        PageResult<List<User>> list = staffService.queryUsers(request);
         HttpSession session = httpServletRequest.getSession();
         User sessionUser = (User)session.getAttribute("USER");
         if(sessionUser != null) {

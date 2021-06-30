@@ -26,7 +26,7 @@ public class SelfController {
     @Autowired
     private LogUtil logUtil;
 
-    //      /toLogin.do
+
     @RequestMapping("/toLogin")
     public void toLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("进入方法---/self/toLogin----------");
@@ -34,7 +34,7 @@ public class SelfController {
     }
 
     @RequestMapping("/login")
-    public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("进入方法---/self/login----------");
         String account =request.getParameter("account");
         String password = request.getParameter("password");
@@ -49,35 +49,35 @@ public class SelfController {
             response.sendRedirect("../self/main");
         }
     }
-    //      /logout.do
+
     @RequestMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("进入方法---/self/logout----------");
         HttpSession session = request.getSession();
         session.setAttribute("USER", null);
         response.sendRedirect("../self/toLogin");
     }
-    //      /main.do
+
     @RequestMapping("/main")
     public void main(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("进入方法---/self/main----------");
         request.getRequestDispatcher("../index.jsp").forward(request,response);
     }
-    //      /self/info.do
+
     @RequestMapping("/info")
     public void info(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("进入方法---/self/info----------");
         request.getRequestDispatcher("../info.jsp").forward(request,response);
     }
-    //      /self/toChangePassword.do
+
     @RequestMapping("/toChangePassword")
     public void toChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("进入方法---/self/toChangePassword----------");
         request.getRequestDispatcher("../change_password.jsp").forward(request,response);
     }
-    //      /self/changePassword.do
+
     @RequestMapping("/changePassword")
-    public void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void changePassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("进入方法---/self/changePassword----------");
         String password = request.getParameter("password");
         String password1 = request.getParameter("password1");
