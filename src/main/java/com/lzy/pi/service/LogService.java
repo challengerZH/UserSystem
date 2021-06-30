@@ -1,5 +1,7 @@
 package com.lzy.pi.service;
 
+import com.github.pagehelper.PageInfo;
+import com.lzy.pi.controller.param.QueryLogRequest;
 import com.lzy.pi.entity.SysLog;
 import com.lzy.pi.entity.VO.LoginLogVO;
 import com.lzy.pi.entity.VO.OperationLogVO;
@@ -16,4 +18,11 @@ public interface LogService {
     List<LoginLogVO> getLoginLog();
 
     List<OperationLogVO> getOperationLog();
+
+    PageInfo<OperationLogVO>  queryOperationLog(QueryLogRequest request);
+
+    PageInfo<LoginLogVO>  queryLoginLog(QueryLogRequest request);
+
+    PageInfo<SysLogVO>  querySystemLog(QueryLogRequest request);
+
 }
