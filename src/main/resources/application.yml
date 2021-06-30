@@ -37,7 +37,7 @@ mybatis:
 
 # 图片上传地址配置
 case:
-  uploadPath: D:\workspace\demo\UserSystem\target\classes\upload\
+  uploadPath: /data/webuser01/grad-project/upload/
   resources:
     pathPatterns: /upload/**
     resourceLocations: file:${case.uploadPath}

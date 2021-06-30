@@ -1,7 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String xscheme = request.getHeader("X-Forwarded-Scheme");
+    if(xscheme==null){
+        xscheme = request.getScheme();
+    }
+    String basePath = xscheme +"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
