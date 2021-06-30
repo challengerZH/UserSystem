@@ -35,4 +35,5 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Office> getAll() {
         return departmentDao.selectAll();
     }
+
 }

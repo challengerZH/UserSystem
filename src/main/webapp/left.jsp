@@ -39,9 +39,9 @@
                 <li>
                     <span><a href="../system/staff/list" target="main">员工管理</a></span>
                 </li>
-                <li>
-                    <span><a href="../system/department/list" target="main">部门管理</a></span>
-                </li>
+                <%--<li>--%>
+                    <%--<span><a href="../system/department/list" target="main">部门管理</a></span>--%>
+                <%--</li>--%>
             </ul>
         </li>
         <li>
@@ -57,7 +57,7 @@
                     <span><a href="../system/log/loginLog" target="main">登陆日志</a></span>
                 </li>
                 <li>
-                    <span><a href="../system/log/systemLog" target="main">系统日志</a></span>
+                    <span><a href="../system/log/systemLog" target="main">告警日志</a></span>
                 </li>
             </ul>
         </li>

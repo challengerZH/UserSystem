@@ -51,9 +51,15 @@
                 success: function (data) {
                     console.log(data);
                     var imageURL=data;
-                    var paths = imageURL.split('\\');
-                    var showUrl  = "http://localhost:8080/system/upload/" + paths[paths.length-1];
-                    $('#pImg').attr('src',showUrl);
+                    var paths;
+                    if(imageURL.indexOf('/') != -1) {
+                        paths  = imageURL.split('/');
+                    } else {
+                        paths  = imageURL.split('\\');
+                    }
+
+                    imageURL  = "../upload/" + paths[paths.length-1];
+                    $('#pImg').attr('src',imageURL);
                     $('#info').attr('value',imageURL);
                 }
             })

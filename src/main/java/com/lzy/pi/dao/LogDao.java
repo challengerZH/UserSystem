@@ -1,6 +1,9 @@
 package com.lzy.pi.dao;
 
 import com.lzy.pi.entity.SysLog;
+import com.lzy.pi.entity.VO.LoginLogVO;
+import com.lzy.pi.entity.VO.OperationLogVO;
+import com.lzy.pi.entity.VO.SysLogVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,4 +12,10 @@ import java.util.List;
 public interface LogDao {
     void insert(SysLog log);
     List<SysLog> selectByType(String type);
+
+    List<SysLogVO> getSystemLog();
+
+    List<LoginLogVO> getLoginLog();
+
+    List<OperationLogVO> getOperationLog();
 }

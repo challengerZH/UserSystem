@@ -2,6 +2,7 @@ package com.lzy.pi.controller;
 
 import com.lzy.pi.entity.User;
 import com.lzy.pi.service.SelfService;
+import com.lzy.pi.utils.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,13 @@ import java.io.IOException;
 public class SelfController {
 
     Logger logger = LoggerFactory.getLogger(SelfController.class);
+    private static final String MOUDLE = "系统登录";
     @Autowired
     private SelfService selfService;
+    @Autowired
+    private LogUtil logUtil;
 
-    //      /toLogin.do
+
     @RequestMapping("/toLogin")
     public void toLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("进入方法---/self/toLogin----------");
@@ -30,7 +34,7 @@ public class SelfController {
     }
 
     @RequestMapping("/login")
-    public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("进入方法---/self/login----------");
         String account =request.getParameter("account");
         String password = request.getParameter("password");
@@ -41,49 +45,53 @@ public class SelfController {
         }else{
             HttpSession session = request.getSession();
             session.setAttribute("USER",user);
+            logUtil.addOperationLog(user.getId().toString(), MOUDLE, "登录系统");
             response.sendRedirect("../self/main");
         }
     }
-    //      /logout.do
+
     @RequestMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("进入方法---/self/logout----------");
         HttpSession session = request.getSession();
         session.setAttribute("USER", null);
         response.sendRedirect("../self/toLogin");
     }
-    //      /main.do
+
     @RequestMapping("/main")
     public void main(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("进入方法---/self/main----------");
         request.getRequestDispatcher("../index.jsp").forward(request,response);
     }
-    //      /self/info.do
+
     @RequestMapping("/info")
     public void info(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("进入方法---/self/info----------");
         request.getRequestDispatcher("../info.jsp").forward(request,response);
     }
-    //      /self/toChangePassword.do
+
     @RequestMapping("/toChangePassword")
     public void toChangePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("进入方法---/self/toChangePassword----------");
         request.getRequestDispatcher("../change_password.jsp").forward(request,response);
     }
-    //      /self/changePassword.do
+
     @RequestMapping("/changePassword")
-    public void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void changePassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("进入方法---/self/changePassword----------");
         String password = request.getParameter("password");
         String password1 = request.getParameter("password1");
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("USER");
+        if(user != null) {
+            logUtil.addOperationLog(user.getId().toString(), MOUDLE, "密码修改");
+        }
         if(!user.getPassword().equals(password)){
             response.sendRedirect("../self/toChangePassword");
         }else{
             selfService.changePassword(user.getId(),password1);
             //response.sendRedirect("../logout.do");
-            response.getWriter().print("<script type=\"text/javascript\">parent.location.href=\"../system/self/logout\"</script>");
+            response.getWriter().print("<script type=\"text/javascript\">parent.location.href=\"../self/logout\"</script>");
         }
     }
 }

@@ -4,23 +4,31 @@ package com.lzy.pi.controller;
  * 实现表现层
  */
 
+import com.github.pagehelper.PageInfo;
+import com.lzy.pi.base.BaseResponse;
+import com.lzy.pi.base.PageResult;
+import com.lzy.pi.constants.BaseConstants;
+import com.lzy.pi.controller.param.QueryUserRequest;
 import com.lzy.pi.entity.Office;
 import com.lzy.pi.entity.User;
 import com.lzy.pi.entity.VO.UserVO;
 import com.lzy.pi.service.DepartmentService;
 import com.lzy.pi.service.StaffService;
 import com.lzy.pi.utils.DateUtil;
+import com.lzy.pi.utils.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,27 +38,39 @@ import java.util.List;
 @RestController
 @RequestMapping("/staff")
 public class StaffController {
-    private final static Logger logger = LoggerFactory.getLogger(StaffController.class);
+    private static final Logger logger = LoggerFactory.getLogger(StaffController.class);
+    private static final String MOUDLE = "人员信息管理";
     @Autowired
     private StaffService staffService;
     @Autowired
     private DepartmentService departmentService;
+    @Autowired
+    private LogUtil logUtil;
 
     @RequestMapping("/list")
     public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("========进入StaffController的方法：/list===========");
         List<User> list = staffService.getAll();
         request.setAttribute("LIST", list);
+        HttpSession session = request.getSession();
+        User sessionUser = (User)session.getAttribute("USER");
+        if(sessionUser != null) {
+            logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "查询");
+        }
         request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
     }
     @RequestMapping("/query")
-    public void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public BaseResponse<PageInfo<User>> query(@RequestBody QueryUserRequest request, HttpServletRequest httpServletRequest) {
+        BaseResponse<PageInfo<User>> response = new BaseResponse<>(true, BaseConstants.SUCCESS_CODE);
         logger.info("========进入StaffController的方法：/query===========");
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        List<User> list = staffService.queryByNameOrPhone(name, phone);
-        request.setAttribute("LIST", list);
-        request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
+        PageInfo<User> pageInfo = staffService.queryUsers(request);
+        HttpSession session = httpServletRequest.getSession();
+        User sessionUser = (User)session.getAttribute("USER");
+        if(sessionUser != null) {
+            logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "搜索");
+        }
+        response.setResult(pageInfo);
+       return response;
     }
 
     @RequestMapping("/toAdd")
@@ -67,6 +87,11 @@ public class StaffController {
         User user = new User();
         this.setUser(user, request);
         staffService.add(user);
+        HttpSession session = request.getSession();
+        User sessionUser = (User)session.getAttribute("USER");
+        if(sessionUser != null) {
+            logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "新增");
+        }
         response.sendRedirect("../staff/list");
     }
 
@@ -89,14 +114,24 @@ public class StaffController {
         User user = staffService.get(id);
         this.setUser(user, request);
         staffService.edit(user);
+        HttpSession session = request.getSession();
+        User sessionUser = (User)session.getAttribute("USER");
+        if(sessionUser != null) {
+            logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "修改");
+        }
         response.sendRedirect("../staff/list");
     }
 
     @RequestMapping("/remove")
-    public void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void remove(HttpServletRequest request, HttpServletResponse response) throws  IOException {
         logger.info("========进入StaffController的方法：/remove===========");
         Integer id = Integer.parseInt(request.getParameter("id"));
         staffService.remove(id);
+        HttpSession session = request.getSession();
+        User sessionUser = (User)session.getAttribute("USER");
+        if(sessionUser != null) {
+            logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "删除");
+        }
         response.sendRedirect("../staff/list");
     }
 
@@ -107,11 +142,16 @@ public class StaffController {
         User user = staffService.get(id);
         UserVO userVO = this.setTimeStr(user);
         request.setAttribute("OBJ", userVO);
+        HttpSession session = request.getSession();
+        User sessionUser = (User)session.getAttribute("USER");
+        if(sessionUser != null) {
+            logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "详情");
+        }
         request.getRequestDispatcher("../staff_detail.jsp").forward(request, response);
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String uploadFile(HttpServletRequest request, HttpServletResponse response)  {
         logger.info("========进入StaffController的方法：/uploadFile===========");
         return staffService.uploadFile(request, response);
     }
@@ -131,7 +171,7 @@ public class StaffController {
             startTime = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startTime"));
             endTime = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endTime"));
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.error("设置user失败：{}", e.getMessage());
         }
         Date date = new Date();
         user.setInfo(info);

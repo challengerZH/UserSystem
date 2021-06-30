@@ -11,15 +11,25 @@ public class LoginLogVO {
     //主键id
     private int id;
     //操作人员
-    private String UserName;
+    private String userName;
     //操作人员手机号
-    private String UserPhone;
+    private String userPhone;
     //公司
     private String officeName;
     //职务
     private String post;
     //操作时间
     private Date oprTime;
+    //动作
+    private String operation;
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
 
     public int getId() {
         return id;
@@ -30,19 +40,19 @@ public class LoginLogVO {
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public String getUserPhone() {
-        return UserPhone;
+        return userPhone;
     }
 
     public void setUserPhone(String userPhone) {
-        UserPhone = userPhone;
+        this.userPhone = userPhone;
     }
 
     public String getOfficeName() {

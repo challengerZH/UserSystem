@@ -31,7 +31,7 @@
                 <span class="name">修改密码</span>
             </div>
             <div class="space_hx">&nbsp;</div>
-            <form action="changePassword.do" method="post" name="addForm">
+            <form action="../self/changePassword" method="post" name="addForm">
                 <div class="xjhy">
                     <!--高级配置-->
                     <ul class="hypz gjpz clearfix">

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>${TYPE}日志</title>
+    <title>告警日志</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../css/thems.css">
@@ -43,8 +43,8 @@
                 <c:forEach items="${LIST}" var="log">
                 <tr>
 
-                    <td>${log.id}</td>
-                    <td>${log.name}</td>
+                    <td>${log.remark}</td>
+                    <td>${log.operation}</td>
                     <td><fmt:formatDate value="${log.oprTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 </tr>
                 </c:forEach>

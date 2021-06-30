@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>${TYPE}日志</title>
+    <title>登陆日志</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../css/thems.css">
@@ -36,7 +36,6 @@
             <!--列表-->
             <table cellpadding="0" cellspacing="0" class="list_hy">
                 <tr>
-                    <th scope="col">序号</th>
                     <th scope="col">姓名</th>
                     <th scope="col">手机号</th>
                     <th scope="col">所属公司</th>
@@ -47,13 +46,13 @@
                 <c:forEach items="${LIST}" var="log">
                 <tr>
 
-                    <td>${log.id}</td>
-                    <td>${log.UserName}</td>
-                    <td>${log.UserPhone}</td>
+                    <td>${log.userName}</td>
+                    <td>${log.userPhone}</td>
                     <td>${log.officeName}</td>
                     <td>${log.post}</td>
                     <td><fmt:formatDate value="${log.oprTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                     <td>${log.operation}</td>
+
                 </tr>
                 </c:forEach>
             </table>
