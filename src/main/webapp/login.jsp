@@ -14,8 +14,7 @@
     <!--框架高度设置-->
     <script type="text/javascript">
         $(function(){
-            //自适应屏幕宽度
-            window.onresize=function(){ location=location };
+
 
             var w_height=$(window).height();
             $('.bg_img').css('height',w_height+'px');

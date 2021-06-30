@@ -15,15 +15,20 @@
     <!--框架高度设置-->
     <script type="text/javascript">
         $(function(){
-            $('.sidenav li').click(function(){
-                $(this).siblings('li').removeClass('now');
-                $(this).addClass('now');
+            $('.level-1').click(function(){
+                console.log('do click')
+                if($(this).parent().hasClass('now')){
+                    $(this).parent().removeClass('now');
+                } else {
+                    $(this).siblings('li').removeClass('now');
+                    $(this).parent().addClass('now');
+                }
             });
 
-            $('.erji li').click(function(){
-                $(this).siblings('li').removeClass('now_li');
-                $(this).addClass('now_li');
-            });
+            // $('.erji li').click(function(){
+            //     $(this).siblings('li').removeClass('now_li');
+            //     $(this).addClass('now_li');
+            // });
 
             var main_h = $(window).height();
             $('.sidenav').css('height',main_h+'px');
@@ -35,8 +40,8 @@
 <body>
 <div id="left_ctn">
     <ul class="sidenav">
-        <li>
-            <div class="nav_m">
+        <li class="now" >
+            <div class="level-1 nav_m">
                 <span><a>人员管理</a></span>
                 <i>&nbsp;</i>
             </div>
@@ -49,8 +54,8 @@
                 <%--</li>--%>
             </ul>
         </li>
-        <li>
-            <div class="nav_m">
+        <li >
+            <div class="level-1 nav_m">
                 <span><a>日志信息</a></span>
                 <i>&nbsp;</i>
             </div>
@@ -66,8 +71,8 @@
                 </li>
             </ul>
         </li>
-        <li class="now">
-            <div class="nav_m">
+        <li >
+            <div class="level-1 nav_m">
                 <span><a>个人中心</a></span>
                 <i>&nbsp;</i>
             </div>

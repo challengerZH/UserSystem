@@ -79,7 +79,7 @@
     </script>
 </head>
 
-<body onLoad="Resize();">
+<body >
 <div id="right_ctn">
     <div class="right_m">
         <div class="hy_list">

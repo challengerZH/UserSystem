@@ -12,7 +12,7 @@
     <frame src="../top.jsp" name="topFrame" scrolling="no">
     <frameset cols="250,*" name="btFrame" frameborder="NO" border="0" framespacing="0">
         <frame src="../left.jsp" noresize name="menu" scrolling="yes">
-        <frame src="../self/info" class="frame_r" noresize name="main" scrolling="yes">
+        <frame src="../staff/list" class="frame_r" noresize name="main" scrolling="yes">
     </frameset>
 </frameset>
 <noframes>
