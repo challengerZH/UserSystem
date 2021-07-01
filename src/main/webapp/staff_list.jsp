@@ -33,7 +33,7 @@
             <div class="r_foot" style="display: flex;">
                 <div class="r_foot_m" style="margin-top: 20px;">
                     <span style="margin-left: 1%; font-size: 15px;">关键字：</span><input id="searchName" type="text" class="mysearch" placeholder=" 请输入手机号或姓名..." value="" />
-                    <a href="" id="searchBtn" class="btn" >搜索</a>
+                    <span id="searchBtn" class="btn" onclick="searchUser();">搜索</span>
                 </div>
                 <div class="r_foot_m" style="margin-top: 30px;margin-left: 10px;">
                     <a href="" id="addBtn" class="btn">添加</a>
@@ -76,7 +76,7 @@
         $('.search').css('width',search_w+'px');
 
         // 搜索
-        $("#searchBtn").bind('click', searchUser)
+        // $("#searchBtn").bind('click', searchUser)
         $("#addBtn").bind('click',function(){
             console.log("<%=basePath%>staff/toAdd")
             window.location.href= "<%=basePath%>staff/toAdd"
@@ -113,11 +113,13 @@
     function searchUser(page) {
         return new Promise((resolve,rec) => {
             var name = document.getElementById('searchName').value;
+            console.log(name)
         var param = {
-            'keyWord': name.toString(),
-            'pageNum': !page?1:page,
-            'pageSize': 5
+            "keyWord": name,
+            "pageNum": !page?1:page,
+            "pageSize": 5
         }
+        console.log(param)
         $.ajax({
             type: 'POST',
             url: '../staff/query',
