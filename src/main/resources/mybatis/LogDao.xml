@@ -72,7 +72,7 @@
         <if test="keyWord != null and keyWord != ''">
             and (u.name = #{keyWord,jdbcType=VARCHAR} or u.phone = #{keyWord,jdbcType=VARCHAR})
         </if>
-         order by l.opr_time ASC
+         order by l.id DESC
     </select>
 
 
@@ -89,7 +89,7 @@
          <if test="keyWord != null and keyWord != ''">
             and (u.name = #{keyWord,jdbcType=VARCHAR} or u.phone = #{keyWord,jdbcType=VARCHAR} )
         </if>
-         order by l.id ASC
+         order by l.id DESC
     </select>
 
  <select id="querySystemLog" parameterType="com.lzy.pi.controller.param.QueryLogRequest" resultType="com.lzy.pi.entity.VO.SysLogVO">
@@ -97,7 +97,7 @@
           l.operation as operation,
           l.opr_time as oprTime
          from sys_log l where l.type = '3'
-         order by l.opr_time ASC
+         order by l.id DESC
     </select>
 
 
