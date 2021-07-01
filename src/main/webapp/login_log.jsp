@@ -59,6 +59,7 @@
 <script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/page.js"></script>
 <script type="text/javascript">
+    let pages = '';
     // 页面初始化
     (function(){
         var main_h = $(window).height();
@@ -66,18 +67,22 @@
         var search_w = $(window).width()-40;
         $('.search').css('width',search_w+'px');
         //$('.list_hy').css('width',search_w+'px');
-        searchBtn();
-        ZUI.paging({
-            prev_next_text: '上一页|下一页',
-            count: 40,
-            selector: '.pageSelect',
-            current: 1,
-            page_len: 7,
-            callBack: function (page) {
-                console.log(page);
-                searchBtn(page)
-            }
-        })
+        searchBtn().then((res)=>{
+            ZUI.paging({
+                prev_next_text: '上一页|下一页',
+                count: res,
+                selector: '.pageSelect',
+                current: 1,
+                page_len: 7,
+                callBack: function (page) {
+                    console.log(page);
+                    searchBtn(page)
+                }
+            })
+        });
+        console.log(Promise)
+        console.log(pages)
+
     })();
     function timeStamp2String(time, type){
         var datetime = new Date(time);
@@ -93,45 +98,51 @@
         return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
     }
     function searchBtn (page){
-        let valueInfo = $('#searchInfo').val();
-        let url = '/system/log/queryLoginLog';
-        let data = {
-            "keyWord": valueInfo,
-            "pageNum": !page?1:page,
-            "pageSize": 5
-        }
-        console.log(data)
-        $.ajax({
-            url: url,
-            data: JSON.stringify(data),
-            type: 'POST-',
-            contentType: 'application/json',
-            success: function (res) {
-                let list = res.result.list
-                let str = '';
-                if(Object.keys(list).length==0){
-                    str='<tr>'
-                        +'<td colspan="6" style="text-align: center">'+'暂未查询到数据'+'</td>'
-                        +'</tr>'
-                }else {
-                    for (let i = 0; i < list.length; i++) {
-                        str +=
-                            '<tr>'
-                            + '<td>' + list[i].userName + '</td>'
-                            + '<td>' + list[i].userPhone + '</td>'
-                            + '<td>' + list[i].officeName + '</td>'
-                            + '<td>' + list[i].post + '</td>'
-                            + '<td>' + timeStamp2String(list[i].oprTime) + '</td>'
-                            + '<td>' + list[i].operation + '</td>'
-                            + '</tr>'
-                    }
-                }
-                $('.activeInfo').empty().html(str)
-            },
-            fail: function (res) {
-                alert(res)
+        return new Promise((resolve,rec)=>{
+            let valueInfo = $('#searchInfo').val();
+            let url = '/system/log/queryLoginLog';
+            let data = {
+                "keyWord": valueInfo,
+                "pageNum": !page?1:page,
+                "pageSize": 5
             }
+            console.log(data)
+            $.ajax({
+                url: url,
+                data: JSON.stringify(data),
+                type: 'POST-',
+                contentType: 'application/json',
+                success: function (res) {
+                    let list = res.result.list
+                    pages = res.result.pages;
+                    // console.log(pages)
+                    let str = '';
+                    if(Object.keys(list).length==0){
+                        str='<tr>'
+                            +'<td colspan="6" style="text-align: center">'+'暂未查询到数据'+'</td>'
+                            +'</tr>'
+                    }else {
+                        for (let i = 0; i < list.length; i++) {
+                            str +=
+                                '<tr>'
+                                + '<td>' + list[i].userName + '</td>'
+                                + '<td>' + list[i].userPhone + '</td>'
+                                + '<td>' + list[i].officeName + '</td>'
+                                + '<td>' + list[i].post + '</td>'
+                                + '<td>' + timeStamp2String(list[i].oprTime) + '</td>'
+                                + '<td>' + list[i].operation + '</td>'
+                                + '</tr>'
+                        }
+                    }
+                    $('.activeInfo').empty().html(str)
+                    resolve(pages);
+                },
+                fail: function (res) {
+                    alert(res)
+                }
+            })
         })
+
     }
 </script>
 </body>
