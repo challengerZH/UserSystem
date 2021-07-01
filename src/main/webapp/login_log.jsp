@@ -17,72 +17,7 @@
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/common.css"/>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/thems.css">
-    <script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript">
-        // 页面初始化
-        (function(){
-            var main_h = $(window).height();
-            $('.hy_list').css('height',main_h-45+'px');
-            var search_w = $(window).width()-40;
-            $('.search').css('width',search_w+'px');
-            //$('.list_hy').css('width',search_w+'px');
-            searchBtn();
-        })();
-        function timeStamp2String(time, type){
-            var datetime = new Date(time);
-            var year = datetime.getFullYear();
-            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-            var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();
-            var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-            var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-            if(type=='day'){
-                return year + "-" + month + "-" + date
-            }
-            return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
-        }
-        function searchBtn (){
-            let valueInfo = $('#searchInfo').val();
-            let url = '/system/log/queryLoginLog';
-            let data = {
-                "keyWord": valueInfo,
-                "pageNum": 1,
-                "pageSize": 5
-            }
-            console.log(data)
-            $.ajax({
-                url: url,
-                data: JSON.stringify(data),
-                type: 'POST-',
-                contentType: 'application/json',
-                success: function (res) {
-                    let list = res.result.list
-                    let str = '';
-                    if(Object.keys(list).length==0){
-                        str='<tr>'
-                            +'<td colspan="6" style="text-align: center">'+'暂未查询到数据'+'</td>'
-                            +'</tr>'
-                    }else {
-                        for (let i = 0; i < list.length; i++) {
-                            str +=
-                                '<tr>'
-                                + '<td>' + list[i].userName + '</td>'
-                                + '<td>' + list[i].userPhone + '</td>'
-                                + '<td>' + list[i].officeName + '</td>'
-                                + '<td>' + list[i].post + '</td>'
-                                + '<td>' + timeStamp2String(list[i].oprTime) + '</td>'
-                                + '<td>' + list[i].operation + '</td>'
-                                + '</tr>'
-                        }
-                    }
-                    $('.activeInfo').empty().html(str)
-                },
-                fail: function (res) {
-                    alert(res)
-                }
-            })
-        }
-    </script>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/page.css">
     <!--框架高度设置-->
 </head>
 
@@ -116,9 +51,88 @@
                 </tbody>
             </table>
             <!--列表-->
+            <div class="pageSelect"></div>
         </div>
         <!--会议列表-->
     </div>
 </div>
+<script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/page.js"></script>
+<script type="text/javascript">
+    // 页面初始化
+    (function(){
+        var main_h = $(window).height();
+        $('.hy_list').css('height',main_h-45+'px');
+        var search_w = $(window).width()-40;
+        $('.search').css('width',search_w+'px');
+        //$('.list_hy').css('width',search_w+'px');
+        searchBtn();
+        ZUI.paging({
+            prev_next_text: '上一页|下一页',
+            count: 40,
+            selector: '.pageSelect',
+            current: 1,
+            page_len: 7,
+            callBack: function (page) {
+                console.log(page);
+                searchBtn(page)
+            }
+        })
+    })();
+    function timeStamp2String(time, type){
+        var datetime = new Date(time);
+        var year = datetime.getFullYear();
+        var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+        var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+        var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();
+        var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+        var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        if(type=='day'){
+            return year + "-" + month + "-" + date
+        }
+        return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
+    }
+    function searchBtn (page){
+        let valueInfo = $('#searchInfo').val();
+        let url = '/system/log/queryLoginLog';
+        let data = {
+            "keyWord": valueInfo,
+            "pageNum": !page?1:page,
+            "pageSize": 5
+        }
+        console.log(data)
+        $.ajax({
+            url: url,
+            data: JSON.stringify(data),
+            type: 'POST-',
+            contentType: 'application/json',
+            success: function (res) {
+                let list = res.result.list
+                let str = '';
+                if(Object.keys(list).length==0){
+                    str='<tr>'
+                        +'<td colspan="6" style="text-align: center">'+'暂未查询到数据'+'</td>'
+                        +'</tr>'
+                }else {
+                    for (let i = 0; i < list.length; i++) {
+                        str +=
+                            '<tr>'
+                            + '<td>' + list[i].userName + '</td>'
+                            + '<td>' + list[i].userPhone + '</td>'
+                            + '<td>' + list[i].officeName + '</td>'
+                            + '<td>' + list[i].post + '</td>'
+                            + '<td>' + timeStamp2String(list[i].oprTime) + '</td>'
+                            + '<td>' + list[i].operation + '</td>'
+                            + '</tr>'
+                    }
+                }
+                $('.activeInfo').empty().html(str)
+            },
+            fail: function (res) {
+                alert(res)
+            }
+        })
+    }
+</script>
 </body>
 </html>
