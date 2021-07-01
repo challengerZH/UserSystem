@@ -120,11 +120,11 @@ public class StaffController {
         if (sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "修改");
         }
-        response.sendRedirect("../staff/list");
+        request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
     }
 
     @RequestMapping("/remove")
-    public void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void remove(HttpServletRequest request, HttpServletResponse response) throws Exception {
         logger.info("========进入StaffController的方法：/remove===========");
         Integer id = Integer.parseInt(request.getParameter("id"));
         staffService.remove(id);
@@ -133,7 +133,7 @@ public class StaffController {
         if (sessionUser != null) {
             logUtil.addOperationLog(sessionUser.getId().toString(), MOUDLE, "删除");
         }
-        response.sendRedirect("../staff/list");
+        request.getRequestDispatcher("../staff_list.jsp").forward(request, response);
     }
 
     @RequestMapping("/detail")

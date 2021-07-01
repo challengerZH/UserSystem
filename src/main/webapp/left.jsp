@@ -57,7 +57,8 @@
             </div>
             <ul class="erji">
                 <li class="now_li">
-                    <span><a href="../system/staff/list" target="main">员工管理</a></span>
+                    <span><a href="<%=basePath%>/staff_list.jsp" target="main">员工管理</a></span>
+                    <%--<span><a href="../system/staff/list" target="main">员工管理</a></span>--%>
                 </li>
                 <%--<li>--%>
                     <%--<span><a href="../system/department/list" target="main">部门管理</a></span>--%>
@@ -71,13 +72,16 @@
             </div>
             <ul class="erji">
                 <li>
-                    <span><a href="../system/log/loginLog" target="main">门禁日志查询</a></span>
+                    <span><a href="<%=basePath%>/login_log.jsp" target="main">门禁日志查询</a></span>
+                    <%--<span><a href="../system/log/loginLog" target="main">门禁日志查询</a></span>--%>
                 </li>
                 <li>
-                    <span><a href="../system/log/systemLog" target="main">告警日志查询</a></span>
+                    <span><a href="<%=basePath%>/alarm_log.jsp" target="main">告警日志查询</a></span>
+                    <%--<span><a href="../system/log/systemLog" target="main">告警日志查询</a></span>--%>
                 </li>
                 <li>
-                    <span><a href="../system/log/operationLog" target="main">系统日志查询</a></span>
+                    <span><a href="<%=basePath%>/operation_log.jsp" target="main">系统日志查询</a></span>
+                    <%--<span><a href="../system/log/operationLog" target="main">系统日志查询</a></span>--%>
                 </li>
             </ul>
         </li>

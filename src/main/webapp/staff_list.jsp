@@ -32,6 +32,7 @@
                 window.location.href= "<%=basePath%>staff/toAdd"
                 return false
             })
+            searchUser();
         });
 
         function timeStamp2String(time, type){
@@ -53,7 +54,7 @@
             var param = {
                 'keyWord':name.toString(),
                 'pageNum':1,
-                'pagSize':10
+                'pageSize':5
             }
             $.ajax({
                 type: 'POST',
