@@ -101,13 +101,13 @@
 
             <div class="space_hx">&nbsp;</div>
 
-            <div class="r_foot">
-                <div class="r_foot_m">
+            <div class="r_foot" style="display: flex;">
+                <div class="r_foot_m" style="margin-top: 20px;">
                     <span style="margin-left: 1%; font-size: 15px;">关键字：</span><input id="searchName" type="text" class="mysearch" placeholder=" 请输入手机号或姓名..." value="" />
-                    <a href="" id="searchBtn" class="btn">搜索</a>
+                    <a href="" id="searchBtn" class="btn" >搜索</a>
                 </div>
-                <div class="r_foot_m">
-                    <a href="" id="addBtn" class="btn" style="float:left; margin-top: 13px;margin-bottom: 3px;">添加</a>
+                <div class="r_foot_m" style="margin-top: 30px;margin-left: 10px;">
+                    <a href="" id="addBtn" class="btn">添加</a>
                 </div>
             </div>
             <!--列表-->
@@ -124,7 +124,7 @@
                     <th scope="col">创建时间</th>
                     <th scope="col">操作</th>
                 </tr>
-                </thead>>
+                </thead>
                 <tbody>
                 <c:forEach items="${LIST}" var="user">
                 <tr>

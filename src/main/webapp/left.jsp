@@ -95,6 +95,17 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <div class="level-1 nav_m">
+                <span><a>远程开门</a></span>
+                <i>&nbsp;</i>
+            </div>
+            <ul class="erji">
+                <li>
+                    <span><a href="<%=basePath%>/controll.jsp" target="main">远程开门</a></span>
+                </li>
+            </ul>
+        </li>
         <%--<li>--%>
             <%--<div class="nav_m">--%>
                 <%--<span><a href="../system/self/logout" target="_top">退出系统</a></span>--%>

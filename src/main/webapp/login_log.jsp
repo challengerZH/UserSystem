@@ -19,51 +19,69 @@
     <link rel="stylesheet" type="text/css" href="<%=basePath%>css/thems.css">
     <script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript">
-        $(function(){
+        // 页面初始化
+        (function(){
             var main_h = $(window).height();
             $('.hy_list').css('height',main_h-45+'px');
             var search_w = $(window).width()-40;
             $('.search').css('width',search_w+'px');
             //$('.list_hy').css('width',search_w+'px');
-            $('#searchBtn').unbind('click').bind('click',function (){
-                let valueInfo = $('#searchInfo').val();
-                let url = '/system/log/queryLoginLog';
-                let data = {
-                    "keyWord":valueInfo,
-                    "pageNum":1,
-                    "pageSize":3
-                }
-                console.log(data)
-                $.ajax({
-                    url:url,
-                    data:JSON.stringify(data),
-                    type:'POST-',
-                    contentType:'application/json',
-                    success:function (res){
-                        console.log(res)
-                         let list = res.result.list
-                        console.log(list[0].id)
-                         let str='';
-                        for(let i=0;i<list.length;i++){
-                            str+=
+            searchBtn();
+        })();
+        function timeStamp2String(time, type){
+            var datetime = new Date(time);
+            var year = datetime.getFullYear();
+            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+            var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();
+            var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+            var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+            if(type=='day'){
+                return year + "-" + month + "-" + date
+            }
+            return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
+        }
+        function searchBtn (){
+            let valueInfo = $('#searchInfo').val();
+            let url = '/system/log/queryLoginLog';
+            let data = {
+                "keyWord": valueInfo,
+                "pageNum": 1,
+                "pageSize": 5
+            }
+            console.log(data)
+            $.ajax({
+                url: url,
+                data: JSON.stringify(data),
+                type: 'POST-',
+                contentType: 'application/json',
+                success: function (res) {
+                    let list = res.result.list
+                    let str = '';
+                    if(Object.keys(list).length==0){
+                        str='<tr>'
+                            +'<td colspan="6" style="text-align: center">'+'暂未查询到数据'+'</td>'
+                            +'</tr>'
+                    }else {
+                        for (let i = 0; i < list.length; i++) {
+                            str +=
                                 '<tr>'
-                                +'<td>'+'list[i].userName'+'</td>'
-                                +'<td>'+'list[i].userPhone'+'</td>'
-                                +'<td>'+'list[i].officeName'+'</td>'
-                                +'<td>'+'list[i].post'+'</td>'
-                                +'<td>'+'list[i].oprTime'+'</td>'
-                                +'<td>'+'list[i].operation'+'</td>'
-                                +'</tr>'
+                                + '<td>' + list[i].userName + '</td>'
+                                + '<td>' + list[i].userPhone + '</td>'
+                                + '<td>' + list[i].officeName + '</td>'
+                                + '<td>' + list[i].post + '</td>'
+                                + '<td>' + timeStamp2String(list[i].oprTime) + '</td>'
+                                + '<td>' + list[i].operation + '</td>'
+                                + '</tr>'
                         }
-                        console.log(str)
-                        $('.activeInfo').html(str)
-                    },
-                    fail:function (res){
-                        alert(res)
                     }
-                })
+                    $('.activeInfo').empty().html(str)
+                },
+                fail: function (res) {
+                    alert(res)
+                }
             })
-        });
+        }
     </script>
     <!--框架高度设置-->
 </head>
@@ -76,12 +94,12 @@
                 <span class="name">门禁日志</span>
             </div>
             <div class="space_hx">&nbsp;</div>
-            <div class="r_foot">
-                <div class="r_foot_m">
-                    <span style="margin-left: 1%; font-size: 15px;">用户信息：</span><input id="searchInfo" type="text" class="mysearch" placeholder="请输入查询下信息" value="" />
+            <div class="r_foot" style="display: flex">
+                <div class="r_foot_m" style="margin-top: 20px">
+                    <span style="margin-left: 1%; font-size: 15px;">查询内容</span><input id="searchInfo" type="text" class="mysearch" placeholder="请输入用户名或手机号" value="" />
                 </div>
-                <div class="r_foot_m">
-                    <span id="searchBtn" class="btn" style="float:left; margin-top: 13px;margin-bottom: 3px;">搜索</span>
+                <div class="r_foot_m" style="margin-top: 20px">
+                    <span id="searchBtn" class="btn" style="float:left; margin-top: 13px;margin-bottom: 3px;" onclick="searchBtn()">搜索</span>
                 </div>
             </div>
             <!--列表-->
