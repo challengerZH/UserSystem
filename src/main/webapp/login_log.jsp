@@ -31,7 +31,7 @@
             <div class="space_hx">&nbsp;</div>
             <div class="r_foot" style="display: flex">
                 <div class="r_foot_m" style="margin-top: 20px">
-                    <span style="margin-left: 1%; font-size: 15px;">查询内容</span><input id="searchInfo" type="text" class="mysearch" placeholder="请输入用户名或手机号" value="" />
+                    <span style="margin-left: 1%; font-size: 15px;">查询内容:&nbsp;&nbsp;</span><input id="searchInfo" type="text" class="mysearch" placeholder="请输入用户名或手机号" value="" />
                 </div>
                 <div class="r_foot_m" style="margin-top: 20px">
                     <span id="searchBtn" class="btn" style="float:left; margin-top: 13px;margin-bottom: 3px;" onclick="searchBtn()">搜索</span>
@@ -73,16 +73,13 @@
                 count: res,
                 selector: '.pageSelect',
                 current: 1,
-                page_len: 7,
+                page_len: res>7?7:res,
                 callBack: function (page) {
                     console.log(page);
                     searchBtn(page)
                 }
             })
         });
-        console.log(Promise)
-        console.log(pages)
-
     })();
     function timeStamp2String(time, type){
         var datetime = new Date(time);

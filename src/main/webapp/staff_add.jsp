@@ -58,13 +58,15 @@
             let post = $('.hypz .post').val();
             let startTime = $('.hypz .startTime').val();
             let endTime = $('.hypz .endTime').val();
+            let info = $('.hypz .info').val();
             let data={
                 name,
                 phone,
                 officeId,
                 post,
                 startTime,
-                endTime
+                endTime,
+                info
             }
             console.log(data)
             $.ajax({
@@ -164,7 +166,7 @@
                                 <img id="pImg" class="chang" src="../images/blank.gif" style="width:78px; height: 78px;left: 20px; ">
                                 <input id="Agreement_file" type="file" style="display:none" onchange="uplodeFile();" />
                                 <%--用来接收图片地址传到后台--%>
-                                <input id="info" type="text" name="info" value="value="${OBJ.info}"" style="display:none"/>
+                                <input id="info" class="info" type="text" name="info" value="value="${OBJ.info}"" style="display:none"/>
                             </div>
 
                         </li>
