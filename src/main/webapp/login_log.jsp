@@ -21,7 +21,7 @@
     <!--框架高度设置-->
 </head>
 
-<body >
+<body style="background-color: #FFFFFF">
 <div id="right_ctn">
     <div class="right_m">
         <div class="hy_list">
@@ -31,10 +31,8 @@
             <div class="space_hx">&nbsp;</div>
             <div class="r_foot" style="display: flex">
                 <div class="r_foot_m" style="margin-top: 20px">
-                    <span style="margin-left: 1%; font-size: 15px;">查询内容:&nbsp;&nbsp;</span><input id="searchInfo" type="text" class="mysearch" placeholder="请输入用户名或手机号" value="" />
-                </div>
-                <div class="r_foot_m" style="margin-top: 20px">
-                    <span id="searchBtn" class="btn" style="float:left; margin-top: 13px;margin-bottom: 3px;" onclick="searchBtn()">搜索</span>
+                    <span style="margin-left: 1%; font-size: 15px;"></span><input id="searchInfo" type="text" class="mysearch" placeholder="请输入用户名或手机号" value="" />
+                    <span id="searchBtn" class="btn" onclick="searchBtn()">搜索</span>
                 </div>
             </div>
             <!--列表-->
@@ -120,13 +118,12 @@
                             +'</tr>'
                     }else {
                         for (let i = 0; i < list.length; i++) {
-                            str +=
-                                '<tr>'
-                                + '<td>' + list[i].userName + '</td>'
-                                + '<td>' + list[i].userPhone + '</td>'
-                                + '<td>' + list[i].officeName + '</td>'
-                                + '<td>' + list[i].post + '</td>'
-                                + '<td>' + timeStamp2String(list[i].oprTime) + '</td>'
+                            str += '<tr>'
+                                if(list[i].userName==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + list[i].userName + '</td>'}
+                                if(list[i].userPhone==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + list[i].userPhone + '</td>'}
+                                if(list[i].officeName==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + list[i].officeName + '</td>'}
+                                if(list[i].post==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + list[i].post + '</td>'}
+                                str+='<td>' + timeStamp2String(list[i].oprTime) + '</td>'
                                 + '<td>' + list[i].operation + '</td>'
                                 + '</tr>'
                         }

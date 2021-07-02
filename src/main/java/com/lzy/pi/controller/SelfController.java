@@ -1,5 +1,7 @@
 package com.lzy.pi.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.lzy.pi.entity.User;
 import com.lzy.pi.service.SelfService;
 import com.lzy.pi.utils.LogUtil;
@@ -44,6 +46,7 @@ public class SelfController {
             response.sendRedirect("../self/toLogin");
         }else{
             HttpSession session = request.getSession();
+            logger.info("user is:{}", JSON.toJSONString(user));
             session.setAttribute("USER",user);
             logUtil.addOperationLog(user.getId().toString(), MOUDLE, "登录系统");
             response.sendRedirect("../self/main");

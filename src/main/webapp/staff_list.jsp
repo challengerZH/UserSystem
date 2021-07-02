@@ -20,7 +20,7 @@
     <!--框架高度设置-->
 </head>
 
-<body>
+<body style="background-color: #FFFFFF">
 <div id="right_ctn">
     <div class="right_m">
         <div class="hy_list">
@@ -29,10 +29,9 @@
             </div>
 
             <div class="space_hx">&nbsp;</div>
-
             <div class="r_foot" style="display: flex;">
                 <div class="r_foot_m" style="margin-top: 20px;">
-                    <span style="margin-left: 1%; font-size: 15px;">关键字：</span><input id="searchName" type="text" class="mysearch" placeholder=" 请输入手机号或姓名..." value="" />
+                    <span style=" font-size: 15px;"></span><input id="searchName" type="text" class="mysearch" placeholder=" 请输入手机号或姓名..." value="" />
                     <span id="searchBtn" class="btn" onclick="searchUser();">搜索</span>
                 </div>
                 <div class="r_foot_m" style="margin-top: 30px;margin-left: 10px;">
@@ -140,8 +139,7 @@
                         tr.append("<td>" + timeStamp2String(item.endTime, 'day') + "</td>")
                         tr.append("<td>" + item.status + "</td>")
                         tr.append("<td>" + timeStamp2String(item.createTime) + "</td>")
-                        tr.append("<a href='../staff/toEdit?id=" + item.id + "' class='btn'>修改</a>")
-                        tr.append("<a href='../staff/remove?id=" + item.id + "' class='btn'>删除</a>")
+                        tr.append("<td><span href='../staff/toEdit?id=" + item.id + "' class='btn'>修改</span><span href='../staff/remove?id=" + item.id + "' class='btn'>删除</span></td>")
                         tbody.append(tr)
                     })
                     resolve(pages);

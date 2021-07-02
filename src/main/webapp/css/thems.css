@@ -31,7 +31,7 @@
 /*会议列表*/
 .hy_list{
 	width:100%;
-	background:#E9E9E9;
+	background:#FFFFFF;
 }
 .search{
 	height:40px;
@@ -193,15 +193,15 @@
 .r_foot{
 	width:90%;
 	height:90px;
-	background:#F4F4F4;
+	background:#FFFFFF;
 	text-align:left;
 	/*position:absolute;*/
 	margin-left: 20px;
 	bottom:0px;
 }
 .r_foot .r_foot_m{
-	width:35%;
-	height:40px;
+	width:295px;
+	margin-left: 10px;
 	line-height:40px;
 	position:relative;
 }

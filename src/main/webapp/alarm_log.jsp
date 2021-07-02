@@ -20,7 +20,7 @@
     <!--框架高度设置-->
 </head>
 
-<body>
+<body style="background-color: #FFFFFF">
 <div id="right_ctn">
     <div class="right_m">
         <div class="hy_list">

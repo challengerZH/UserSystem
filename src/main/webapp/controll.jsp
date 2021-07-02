@@ -14,6 +14,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="../css/duDialog.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>css/thems.css">
     <style>
         body, h1, h2, h3, h4, h5, h6, p, dl, dd{
             margin: 0;
@@ -34,13 +36,15 @@
             width: 80%;
             height: 780px;
             margin: 0 auto;
-            border: 1px solid #ffdddd;
+            border: 1px solid #F0F0F0;
+            background-color: #FFFFFF;
+            margin-top: 10px;
         }
         .top{
             width: 95%;
             height: 20px;
             margin: 0 auto;
-            border: 1px solid #000;
+            border: 1px solid #F0F0F0;
             text-align: center;
             margin-top: 15px;
             font-size: 12px;
@@ -48,7 +52,7 @@
         .center{
             width: 95%;
             height: 200px;
-            border: 1px solid #36d;
+            border: 1px solid #F0F0F0;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -58,7 +62,7 @@
         .center_left,.center_right{
             width: 20%;
             height: 100%;
-            border: 1px solid #ccccdd;
+            border: 1px solid #F0F0F0;
         }
         .center_middle{
             width: 55%;
@@ -75,9 +79,9 @@
             align-items: center;
             justify-content: center;
         }
-        .center_left_top,.center_left_bottom{
+        .center_left_bottom{
             width: 100%;
-            height: 85px;
+            height: 180px;
         }
         .center_left_top{
             display: flex;
@@ -147,7 +151,7 @@
         .footer_left,.footer_right{
             width: 49%;
             height: 100%;
-            border: 1px solid red;
+            border: 1px solid #F0F0F0;
         }
         .footer_left_content{
             width: 100%;
@@ -159,7 +163,6 @@
         .footer_left_content>li{
             width: 30%;
             height: 150px;
-            border: 1px solid #3366dd;
         }
         .footer_left_content_top_left,.footer_left_content_top_mid,.footer_left_content_top_right{
             line-height: 75px;
@@ -198,21 +201,17 @@
             line-height: 40px;
         }
     </style>
-    <script rel="stylesheet" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
+
 </head>
-<body onLoad="Resize();">
+<body style="background-color: #FFFFFF">
+<div class="box_t">
+    <span class="name">远程开门</span>
+</div>
     <div class="outermost">
-        <div class="top">
-            告警信息:设备SN0000001  &nbsp&nbsp  频繁进行人脸识别 &nbsp&nbsp  2021-05-07 18:59:03
-        </div>
         <div class="center">
             <div class="center_left">
                 <div class="center_child_header">
                     远程呼叫应答
-                </div>
-                <div class="center_left_top">
-                    <div class="center_left_top_img"><img src="<%=basePath%>/images/u36.png" alt=""></div>
-                    <div class="center_left_top_img"><img src="<%=basePath%>/images/u37.png" alt=""></div>
                 </div>
                 <div class="center_left_bottom">
                     <div class="center_left_bottom_img">
@@ -222,7 +221,7 @@
             </div>
             <div class="center_middle">
                 <div class="center_child_header">
-                    站点视频监控
+                    最近一次人脸识别
                 </div>
                 <div class="center_middle_img">
                     <img src="<%=basePath%>/images/u30.png" alt="">
@@ -233,14 +232,14 @@
                     近期进入人员信息
                 </div>
                 <div class="center_right_bottom">
-                    <ul>
-                        <li>张三  2021-05-08 18:28:16</li>
-                        <li>李四  2021-05-08 18:20:10</li>
-                        <li>王五  2021-05-08 08:21:32</li>
-                        <li>刘二  2021-05-07 14:28:19</li>
-                        <li>陈六  2021-05-07 12:40:01</li>
-                        <li>张三  2021-05-07 10:36:27</li>
-                        <li>李四  2021-05-06 18:21:16</li>
+                    <ul class="loginLog">
+                        <li>朱颢  2021-05-08 18:28:16</li>
+                        <li>朱颢  2021-05-08 18:20:10</li>
+                        <li>朱颢  2021-05-08 08:21:32</li>
+                        <li>朱颢  2021-05-07 14:28:19</li>
+                        <li>朱颢  2021-05-07 12:40:01</li>
+                        <li>朱颢  2021-05-07 10:36:27</li>
+                        <li>朱颢  2021-05-06 18:21:16</li>
                     </ul>
                 </div>
             </div>
@@ -253,26 +252,9 @@
                 <ul class="footer_left_content">
                     <li>
                         <div class="footer_left_content_top_left">
-                            8人
                         </div>
                         <div class="footer_left_content_bottom">
                             到访人员
-                        </div>
-                    </li>
-                    <li>
-                        <div class="footer_left_content_top_mid">
-                           6人
-                        </div>
-                        <div class="footer_left_content_bottom">
-                            离访人员
-                        </div>
-                    </li>
-                    <li>
-                        <div class="footer_left_content_top_right">
-                           2人
-                        </div>
-                        <div class="footer_left_content_bottom">
-                            驻留人员
                         </div>
                     </li>
                 </ul>
@@ -285,21 +267,21 @@
                     异常告警历史记录
                 </div>
                 <div class="footer_right_bottom">
-                    <ul class="footer_right_bottom_content">
+                    <ul class="footer_right_bottom_content" id="footer_right_bottom_content1">
                         <li>SN0000001 </li>
                         <li>SN0000001</li>
                         <li>SN0000001</li>
                         <li>SN0000001</li>
                         <li>SN0000001</li>
                     </ul>
-                    <ul class="footer_right_bottom_content">
+                    <ul class="footer_right_bottom_content" id="footer_right_bottom_content2">
                         <li>未在规定时间离开</li>
                         <li>频繁进行人脸识别</li>
                         <li>门锁未正常闭锁</li>
                         <li>门锁未正常开锁</li>
                         <li>未在规定时间离开</li>
                     </ul>
-                    <ul class="footer_right_bottom_content">
+                    <ul class="footer_right_bottom_content" id="footer_right_bottom_content3">
                         <li>2021-05-07 18:56:20 </li>
                         <li>2021-05-07 18:56:20</li>
                         <li>2021-05-07 18:56:20</li>
@@ -310,8 +292,11 @@
             </div>
         </div>
     </div>
+    <script rel="stylesheet" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
+    <script rel="stylesheet" src="<%=basePath%>js/duDialog.js"></script>
     <script>
-        $(function(){
+        //页面初始化调用接口
+        (function(){
             //自适应屏幕宽度
             window.onresize=function(){ location=location };
             var main_h = $(window).height();
@@ -319,23 +304,180 @@
             var search_w = $(window).width()-40;
             $('.search').css('width',search_w+'px');
             //$('.list_hy').css('width',search_w+'px');
-        });
-        $('.center_left_bottom_img').bind('click',function (){
-            let data={
-                "keyWord":'',
-                "pageNum":1,
-                "pageSize":3
+            searchVisit();//到访人员
+            nearestFace();//人脸识别
+            loginLog();//到访人员
+            getNowFormatDate();
+            alarmLog();
+        })();
+        //获取当前日期时间
+        function getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
             }
-            let url = '/system/api/othersystem/v1.0/open';
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = year + seperator1 + month + seperator1 + strDate;
+            $('.footer_bottom').html('数据统计：截止至'+currentdate);
+        }
+        function timeStamp2String(time, type){
+            var datetime = new Date(time);
+            var year = datetime.getFullYear();
+            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+            var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();
+            var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+            var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+            if(type=='day'){
+                return year + "-" + month + "-" + date
+            }
+            return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
+        }
+        function searchVisit(){
+            let url = '/system/log/countVisitors';
+            let data = '';
             $.ajax({
                 url:url,
-                data:JSON.stringify(data),
-                type:'post',
+                data:data,
+                type: 'POST',
                 contentType:'application/json',
                 success:function (res){
                     console.log(res)
+                    if(res.success){
+                        $('.footer_left_content_top_left').html(res.result+'人')
+                    }else {
+                        alert('获取信息失败')
+                    }
+                },
+                fail:function (res){
+                    alert('获取信息失败')
                 }
             })
+
+        }
+        function nearestFace(){
+            let url = '/system/staff/getLastImg';
+            let data = '';
+            $.ajax({
+                url:url,
+                data:data,
+                type: 'POST',
+                contentType:'application/json',
+                success:function (res){
+                    console.log(res)
+                    if(res.success){
+                        let imgPath = res.result;
+                        $('.center_middle_img img').attr('src','../'+imgPath.split('/')[4]+imgPath.split('/')[5])
+                    }else {
+                        alert('获取人脸识别失败')
+                    }
+                },
+                fail:function (res){
+                    alert('获取人脸识别失败')
+                }
+            })
+        }
+        function loginLog(){
+            let url = '/system/log/queryLoginLog';
+            let data = {
+                "keyWord": '',
+                "pageNum": 1,
+                "pageSize": 6
+            }
+            console.log(data)
+            $.ajax({
+                url: url,
+                data: JSON.stringify(data),
+                type: 'POST',
+                contentType: 'application/json',
+                success: function (res) {
+                    let list = res.result.list
+                    // console.log(pages)
+                    let str = '';
+                    if(Object.keys(list).length==0){
+                        str= '<li style="text-align: center">'+'暂未查询到数据'+'</li>'
+                    }else {
+                        for (let i = 0; i < list.length; i++) {
+                            str += '<li>' + list[i].userName +'\xa0\xa0\xa0'+ timeStamp2String(list[i].oprTime) + '</li>'
+                        }
+                    }
+                    $('.loginLog').empty().html(str)
+                },
+                fail: function (res) {
+                    alert(res)
+                }
+            })
+        }
+        function alarmLog(){
+            let url = '/system/log/querySystemLog';
+            let data = {
+                "keyWord": '',
+                "pageNum": 1,
+                "pageSize": 5
+            }
+            console.log(data)
+            $.ajax({
+                url: url,
+                data: JSON.stringify(data),
+                type: 'POST',
+                contentType: 'application/json',
+                success: function (res) {
+                    let list = res.result.list
+                    // console.log(pages)
+                    let str = '';
+                    let str1 = '';
+                    let str2 = '';
+                    if(Object.keys(list).length==0){
+                        str= '<li style="text-align: center">'+'暂未查询到数据'+'</li>'
+                        str1= '<li style="text-align: center">'+'暂未查询到数据'+'</li>'
+                        str2= '<li style="text-align: center">'+'暂未查询到数据'+'</li>'
+                    }else {
+                        for (let i = 0; i < list.length; i++) {
+                            str += '<li>' + list[i].remark + '</li>'
+                            str1 += '<li>' + list[i].operation + '</li>'
+                            str2 += '<li>' + timeStamp2String(list[i].oprTime)+ '</li>'
+                        }
+                    }
+                    $('#footer_right_bottom_content1').empty().html(str)
+                    $('#footer_right_bottom_content2').empty().html(str1)
+                    $('#footer_right_bottom_content3').empty().html(str2)
+                },
+                fail: function (res) {
+                    alert(res)
+                }
+            })
+        }
+        $('.center_left_bottom_img').on('click', function () {
+            new duDialog('是否确认执行此操作', '你确定吗?', duDialog.OK_CANCEL, {
+                okText: '确定',
+                callbacks: {
+                    okClick: function () {
+                        // do something
+                        this.hide();  // hides the dialog
+                        let data={
+                            "keyWord":'',
+                            "pageNum":1,
+                            "pageSize":3
+                        }
+                        let url = '/system/api/othersystem/v1.0/open';
+                        $.ajax({
+                            url:url,
+                            data:JSON.stringify(data),
+                            type:'post',
+                            contentType:'application/json',
+                            success:function (res){
+                                console.log(res)
+                            }
+                        })
+                    }
+                }
+            });
         })
     </script>
 </body>

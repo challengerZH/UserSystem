@@ -16,11 +16,10 @@ img{
 /*头部*/
 .head{
 	width:100%;
-	height:80px;
+	height:85px;
 	min-width:1200px;
 	margin:0px auto;
 	background:#FFFFFF;
-	border-bottom:#666666 5px solid;
 }
 .head .logo{
 	width:40%;

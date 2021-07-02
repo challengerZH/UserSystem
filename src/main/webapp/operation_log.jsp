@@ -22,7 +22,7 @@
     <!--框架高度设置-->
 </head>
 
-<body >
+<body style="background-color: #FFFFFF">
 <div id="right_ctn">
     <div class="right_m">
         <div class="hy_list">
@@ -32,10 +32,8 @@
             <div class="space_hx">&nbsp;</div>
             <div class="r_foot" style="display: flex">
                 <div class="r_foot_m" style="margin-top: 20px">
-                    <span style="margin-left: 1%; font-size: 15px;">查询信息:&nbsp;&nbsp;&nbsp;&nbsp;</span><input id="searchName" type="text" class="mysearch" placeholder="请输入用户名或手机号" value="" />
-                </div>
-                <div class="r_foot_m" style="margin-top: 20px">
-                    <div id="searchBtn" class="btn" onclick="searchOperationLog();" style="float:left; margin-top: 13px;margin-bottom: 3px;">搜索</div>
+                    <span style="margin-left: 1%; font-size: 15px;"></span><input id="searchName" type="text" class="mysearch" placeholder="请输入用户名或手机号" value="" />
+                    <div id="searchBtn" class="btn" onclick="searchOperationLog();">搜索</div>
                 </div>
             </div>
             <!--列表-->
