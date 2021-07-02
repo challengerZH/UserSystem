@@ -334,7 +334,7 @@ public class StaffServiceImpl implements StaffService {
                     }
                     response.setSuccess(true);
                     response.setResultCode(BaseConstants.SUCCESS_CODE);
-                    response.setResult(resourceLocations + File.separator + "faces" + File.separator + fileNames.get(max));
+                    response.setResult(resourceLocations + "faces" + File.separator + fileNames.get(max));
                 } else {
                     logger.error("文件列表不存在!");
                 }

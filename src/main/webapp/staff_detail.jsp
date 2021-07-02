@@ -20,11 +20,6 @@
     <script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            //自适应屏幕宽度
-            window.onresize = function () {
-                location = location
-            };
-
             var main_h = $(window).height();
             $('.hy_list').css('height', main_h - 45 + 'px');
 

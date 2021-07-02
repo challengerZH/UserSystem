@@ -233,13 +233,6 @@
                 </div>
                 <div class="center_right_bottom">
                     <ul class="loginLog">
-                        <li>朱颢  2021-05-08 18:28:16</li>
-                        <li>朱颢  2021-05-08 18:20:10</li>
-                        <li>朱颢  2021-05-08 08:21:32</li>
-                        <li>朱颢  2021-05-07 14:28:19</li>
-                        <li>朱颢  2021-05-07 12:40:01</li>
-                        <li>朱颢  2021-05-07 10:36:27</li>
-                        <li>朱颢  2021-05-06 18:21:16</li>
                     </ul>
                 </div>
             </div>
@@ -259,7 +252,6 @@
                     </li>
                 </ul>
                 <div class="footer_bottom">
-                    数据统计：截止至2021-05-08 18:58
                 </div>
             </div>
             <div class="footer_right">
@@ -268,25 +260,10 @@
                 </div>
                 <div class="footer_right_bottom">
                     <ul class="footer_right_bottom_content" id="footer_right_bottom_content1">
-                        <li>SN0000001 </li>
-                        <li>SN0000001</li>
-                        <li>SN0000001</li>
-                        <li>SN0000001</li>
-                        <li>SN0000001</li>
                     </ul>
                     <ul class="footer_right_bottom_content" id="footer_right_bottom_content2">
-                        <li>未在规定时间离开</li>
-                        <li>频繁进行人脸识别</li>
-                        <li>门锁未正常闭锁</li>
-                        <li>门锁未正常开锁</li>
-                        <li>未在规定时间离开</li>
                     </ul>
                     <ul class="footer_right_bottom_content" id="footer_right_bottom_content3">
-                        <li>2021-05-07 18:56:20 </li>
-                        <li>2021-05-07 18:56:20</li>
-                        <li>2021-05-07 18:56:20</li>
-                        <li>2021-05-07 18:56:20</li>
-                        <li>2021-05-07 18:56:20</li>
                     </ul>
                 </div>
             </div>
@@ -297,8 +274,6 @@
     <script>
         //页面初始化调用接口
         (function(){
-            //自适应屏幕宽度
-            window.onresize=function(){ location=location };
             var main_h = $(window).height();
             $('.hy_list').css('height',main_h-45+'px');
             var search_w = $(window).width()-40;
@@ -313,18 +288,7 @@
         //获取当前日期时间
         function getNowFormatDate() {
             var date = new Date();
-            var seperator1 = "-";
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var strDate = date.getDate();
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
-            }
-            if (strDate >= 0 && strDate <= 9) {
-                strDate = "0" + strDate;
-            }
-            var currentdate = year + seperator1 + month + seperator1 + strDate;
-            $('.footer_bottom').html('数据统计：截止至'+currentdate);
+            $('.footer_bottom').html('数据统计：截止至'+timeStamp2String(date));
         }
         function timeStamp2String(time, type){
             var datetime = new Date(time);
@@ -372,8 +336,8 @@
                 success:function (res){
                     console.log(res)
                     if(res.success){
-                        let imgPath = res.result;
-                        $('.center_middle_img img').attr('src','../'+imgPath.split('/')[4]+imgPath.split('/')[5])
+                        let imgPath = '<%=basePath%>' + res.result.replace(/\/data\/webuser01\/grad-project\//,'');
+                        $('.center_middle_img img').attr('src', imgPath)
                     }else {
                         alert('获取人脸识别失败')
                     }
