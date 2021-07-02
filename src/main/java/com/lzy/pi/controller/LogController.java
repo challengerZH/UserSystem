@@ -13,6 +13,7 @@ import com.lzy.pi.utils.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -120,4 +121,13 @@ public class LogController {
         }
         request.getRequestDispatcher("../alarm_log.jsp").forward(request, response);
     }
+
+
+
+    @PostMapping("/countVisitors")
+    public BaseResponse countVisitors(HttpServletRequest request, HttpServletResponse response) {
+        logger.info("========进入StaffController的方法：/countVisitors===========");
+        return logService.countVisitors();
+    }
+
 }

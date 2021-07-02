@@ -32,4 +32,6 @@ public interface StaffService {
     BaseResponse uploadImage(File file);
 
     BaseResponse uploadLog(AddLogRequest request);
+
+    BaseResponse getLastImag();
 }

@@ -7,6 +7,7 @@ import com.lzy.pi.base.BaseResponse;
 import com.lzy.pi.constants.BaseConstants;
 import com.lzy.pi.controller.param.AddLogRequest;
 import com.lzy.pi.controller.param.QueryUserRequest;
+import com.lzy.pi.dao.LogDao;
 import com.lzy.pi.dao.StaffDao;
 import com.lzy.pi.entity.Office;
 import com.lzy.pi.entity.User;
@@ -313,4 +314,33 @@ public class StaffServiceImpl implements StaffService {
         return null;
     }
 
+
+    @Override
+    public BaseResponse getLastImag() {
+        BaseResponse response = new BaseResponse(false, BaseConstants.FAULT_CODE);
+            File file = new File(resourceLocations + File.separator + "faces" + File.separator);
+            if (file.exists()) {
+                String[] names = file.list();
+                if (names != null && names.length != 0) {
+                    Map<Long, String> fileNames = new HashMap<>();
+                    for (String a : names) {
+                        fileNames.put(Long.valueOf(a.substring(0, a.indexOf('.'))), a);
+                    }
+                    Long max = 0l;
+                    for(Long l : fileNames.keySet()) {
+                        if(l >= max) {
+                            max = l;
+                        }
+                    }
+                    response.setSuccess(true);
+                    response.setResultCode(BaseConstants.SUCCESS_CODE);
+                    response.setResult(resourceLocations + File.separator + "faces" + File.separator + fileNames.get(max));
+                } else {
+                    logger.error("文件列表不存在!");
+                }
+            } else {
+                logger.error("文件夹不存在!");
+            }
+        return response;
+    }
 }

@@ -3,6 +3,8 @@ package com.lzy.pi.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lzy.pi.base.BaseResponse;
+import com.lzy.pi.constants.BaseConstants;
 import com.lzy.pi.controller.param.QueryLogRequest;
 import com.lzy.pi.dao.LogDao;
 import com.lzy.pi.entity.SysLog;
@@ -85,5 +87,13 @@ public class LogServiceImpl implements LogService {
         PageInfo<SysLogVO> pageInfo = new PageInfo(list, request.getPageSize());
         logger.info("querySystemLog--------response:{}", JSONObject.toJSON(pageInfo));
         return  pageInfo;
+    }
+
+    @Override
+    public BaseResponse countVisitors() {
+        BaseResponse response = new BaseResponse(true, BaseConstants.SUCCESS_CODE);
+        int count = logDao.countVisitors();
+        response.setResult(count);
+        return response;
     }
 }

@@ -158,6 +158,13 @@ public class StaffController {
     }
 
 
+    @PostMapping("/getLastImg")
+    public BaseResponse getLastImg(HttpServletRequest request, HttpServletResponse response) {
+        logger.info("========进入StaffController的方法：/getLastImg===========");
+        return staffService.getLastImag();
+    }
+
+
     private void setUser(User user, HttpServletRequest request) {
         Integer officeId = Integer.parseInt(request.getParameter("officeId"));
         String officeName = request.getParameter("officeName");

@@ -1,6 +1,7 @@
 package com.lzy.pi.service;
 
 import com.github.pagehelper.PageInfo;
+import com.lzy.pi.base.BaseResponse;
 import com.lzy.pi.controller.param.QueryLogRequest;
 import com.lzy.pi.entity.SysLog;
 import com.lzy.pi.entity.VO.LoginLogVO;
@@ -24,5 +25,7 @@ public interface LogService {
     PageInfo<LoginLogVO>  queryLoginLog(QueryLogRequest request);
 
     PageInfo<SysLogVO>  querySystemLog(QueryLogRequest request);
+
+    BaseResponse countVisitors();
 
 }

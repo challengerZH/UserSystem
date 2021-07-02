@@ -3,7 +3,6 @@ package com.lzy.pi.dao;
 
 import com.lzy.pi.controller.param.QueryUserRequest;
 import com.lzy.pi.entity.User;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

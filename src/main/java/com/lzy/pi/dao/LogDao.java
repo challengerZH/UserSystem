@@ -26,4 +26,5 @@ public interface LogDao {
 
     List<SysLogVO> querySystemLog(QueryLogRequest request);
 
+    int countVisitors();
 }

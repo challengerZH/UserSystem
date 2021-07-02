@@ -102,4 +102,8 @@
 
 
 
+    <select id="countVisitors"  resultType="Integer">
+        select count(*) from sys_log where opr_time &gt;= DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s') AND opr_time &lt;= DATE_FORMAT(CURDATE() + 1,'%Y-%m-%d %H:%i:%s') and operation in ('人脸识别成功', '远程开门');
+    </select>
+
 </mapper>

@@ -6,12 +6,14 @@ import com.lzy.pi.constants.BaseConstants;
 import com.lzy.pi.controller.param.AddLogRequest;
 import com.lzy.pi.entity.User;
 import com.lzy.pi.service.StaffService;
+import com.lzy.pi.utils.DateUtil;
 import com.lzy.pi.utils.LogUtil;
 import com.lzy.pi.websocket.WebSocketServer;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +46,9 @@ public class OtherSystemController {
     @Autowired
     private WebSocketServer webSocketServer;
 
+    @Value("${case.uploadPath}")
+    private String resourceLocations;
+
     @RequestMapping("/v1.0/uploadImage")
     public BaseResponse uploadImage(HttpServletRequest request) {
         logger.info("==============进入OtherSystemController的uploadImage=================");
@@ -51,7 +56,8 @@ public class OtherSystemController {
         MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multipartHttpServletRequest.getFile("image");
         String fileName = file.getOriginalFilename();
-        File file1 = new File(System.getProperty("java.io.tmpdir") + File.separator + fileName);
+        fileName =  DateUtil.getSysDate().getTime() + fileName.substring(fileName.lastIndexOf('.'));
+        File file1 = new File(resourceLocations + File.separator + "faces" + File.separator + fileName);
         try {
             FileUtils.copyInputStreamToFile(file.getInputStream(), file1);
             response = staffService.uploadImage(file1);
