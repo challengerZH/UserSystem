@@ -91,7 +91,7 @@ public class OtherSystemController {
         logger.info("==============进入OtherSystemController的open=================");
         HttpSession session = request.getSession();
         User sessionUser = (User) session.getAttribute("USER");
-        webSocketServer.sendInfo("user01", "{\"operate\":\"open\"}");
+        webSocketServer.sendInfo("123", "{\"data\":\"open\"}");
         if (sessionUser != null) {
             logUtil.addLoginLog(sessionUser.getId().toString(), "远程开门");
         }
