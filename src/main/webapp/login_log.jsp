@@ -101,7 +101,6 @@
                 "pageNum": !page?1:page,
                 "pageSize": 5
             }
-            console.log(data)
             $.ajax({
                 url: url,
                 data: JSON.stringify(data),
@@ -118,11 +117,23 @@
                             +'</tr>'
                     }else {
                         for (let i = 0; i < list.length; i++) {
+                            let uitem = list[i]
+                            let uname = uitem.userName
+                            let uphone = uitem.userPhone
+                            let officename = uitem.officeName
+                            let post = uitem.post
+                            if(uitem.operation==="远程开门" && uitem.remark!=null){
+                                let mark = JSON.parse(uitem.remark)
+                                uname = mark.name
+                                uphone = mark.phone
+                                officename = mark.officeName
+                                post = mark.post
+                            }
                             str += '<tr>'
-                                if(list[i].userName==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + list[i].userName + '</td>'}
-                                if(list[i].userPhone==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + list[i].userPhone + '</td>'}
-                                if(list[i].officeName==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + list[i].officeName + '</td>'}
-                                if(list[i].post==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + list[i].post + '</td>'}
+                                if(uname==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + uname + '</td>'}
+                                if(uphone==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + uphone + '</td>'}
+                                if(officename==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + officename + '</td>'}
+                                if(post==null){str+='<td>' + "-" + '</td>'}else{str+='<td>' + post + '</td>'}
                                 str+='<td>' + timeStamp2String(list[i].oprTime) + '</td>'
                                 + '<td>' + list[i].operation + '</td>'
                                 + '</tr>'

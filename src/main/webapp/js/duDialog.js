@@ -192,6 +192,40 @@
 				}
 			} else content.innerHTML = _.message;
 
+			// TODO  此处修改from录入人员信息
+            var sItem = createElem('div', 'dlg-select-item')
+            var nameLabel = createElem('label', 'dlg-select-lbl', '姓 名：');
+            var nameInput = createElem('input', 'dlg-select-text')
+            sItem.append(nameLabel)
+            sItem.append(nameInput)
+
+            var pItem = createElem('div', 'dlg-select-item')
+            var pLabel = createElem('label', 'dlg-select-lbl', '手 机：');
+            var pInput = createElem('input', 'dlg-select-text')
+            pItem.append(pLabel)
+            pItem.append(pInput)
+
+            var oItem = createElem('div', 'dlg-select-item')
+            var oLabel = createElem('label', 'dlg-select-lbl', '部 门：');
+            var oInput = createElem('input', 'dlg-select-text')
+            oItem.append(oLabel)
+            oItem.append(oInput)
+
+            var nItem = createElem('div', 'dlg-select-item')
+            var nLabel = createElem('label', 'dlg-select-lbl', '职 务：');
+            var nInput = createElem('input', 'dlg-select-text')
+            nItem.append(nLabel)
+            nItem.append(nInput)
+
+            // var phoneLabel = createElem('label', 'dlg-select-lbl', '手机：');
+            // var officeLabel = createElem('label', 'dlg-select-lbl', '部门：');
+            // var portLabel = createElem('label', 'dlg-select-lbl', '职务：');
+
+			content.appendChild(sItem);
+            content.appendChild(pItem);
+            content.appendChild(oItem);
+            content.appendChild(nItem);
+
 			wrapper.appendChild(content);
 
 			if (_.type !== duDialog.NO_ACTION) {

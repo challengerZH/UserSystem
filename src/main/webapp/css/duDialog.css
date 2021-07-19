@@ -46,7 +46,8 @@
 
 	.du-dialog .dlg-wrapper {
 		position: absolute;
-	    min-width: 280px;
+	    min-width: 520px;
+		min-height: 360px;
 	    max-width: 90%;
 	    max-height: 90%;
 	    display: -webkit-box;
@@ -92,10 +93,10 @@
 
 		.du-dialog .dlg-select-item {
 			position: relative;
-			margin: 0 -24px;
+			margin: 10 -24px;
 			padding: 0 24px;
 			line-height: 48px;
-			cursor: pointer;
+			/*cursor: pointer;*/
 			-moz-transition: background-color .2s linear;
 			transition: background-color .2s linear;
 		}
@@ -110,6 +111,10 @@
 	        height: 18px;
 	        width: 18px;
 	        opacity: 0;
+		}
+		.du-dialog .dlg-select-item .dlg-select-text {
+			height: 25px;
+			width: 240px;
 		}
 
 		.du-dialog .dlg-select-item .dlg-select-lbl {
@@ -223,7 +228,7 @@
 
 	.du-dialog .dlg-action {
 		font-family: inherit;
-		font-size: 14px;
+		font-size: 16px;
 		border: none;
 		cursor: pointer;
 		padding: 0 12px;

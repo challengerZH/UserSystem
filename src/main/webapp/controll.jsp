@@ -125,7 +125,7 @@
             align-items: center;
         }
         .center_middle_img>img{
-            width: 60px;
+            width: 125px;
         }
         ul{
             width: 100%;
@@ -334,16 +334,16 @@
                 type: 'POST',
                 contentType:'application/json',
                 success:function (res){
-                    console.log(res)
                     if(res.success){
                         let imgPath = '<%=basePath%>' + res.result.replace(/\/data\/webuser01\/grad-project\//,'');
                         $('.center_middle_img img').attr('src', imgPath)
+                        $('.center_middle_img img').width('225px')
                     }else {
-                        alert('获取人脸识别失败')
+                        console.log('获取人脸识别失败')
                     }
                 },
                 fail:function (res){
-                    alert('获取人脸识别失败')
+                    console.log('获取人脸识别失败', res)
                 }
             })
         }
@@ -362,13 +362,18 @@
                 contentType: 'application/json',
                 success: function (res) {
                     let list = res.result.list
-                    // console.log(pages)
                     let str = '';
                     if(Object.keys(list).length==0){
                         str= '<li style="text-align: center">'+'暂未查询到数据'+'</li>'
                     }else {
                         for (let i = 0; i < list.length; i++) {
-                            str += '<li>' + list[i].userName +'\xa0\xa0\xa0'+ timeStamp2String(list[i].oprTime) + '</li>'
+                            let uitem = list[i]
+                            let uname = uitem.userName
+                            if(uitem.operation==="远程开门" && uitem.remark!=null){
+                                let mark = JSON.parse(uitem.remark)
+                                uname = mark.name
+                            }
+                            str += '<li>' + uname +'\xa0\xa0\xa0'+ timeStamp2String(list[i].oprTime) + '</li>'
                         }
                     }
                     $('.loginLog').empty().html(str)
@@ -418,25 +423,36 @@
             })
         }
         $('.center_left_bottom_img').on('click', function () {
-            new duDialog('是否确认执行此操作', '你确定吗?', duDialog.OK_CANCEL, {
+            new duDialog('执行远程开门，并录入访客信息', '', duDialog.OK_CANCEL, {
                 okText: '确定',
                 callbacks: {
                     okClick: function () {
                         // do something
                         this.hide();  // hides the dialog
-                        let data={
-                            "keyWord":'',
-                            "pageNum":1,
-                            "pageSize":3
-                        }
+                        let remark = {}
+                        $('.dlg-content input').each(function (i) {
+                            if(i==0&&this.value!=''){
+                                remark.name = this.value.trim()
+                            }
+                            if(i==1&&this.value!=''){
+                                remark.phone = this.value.trim()
+                            }
+                            if(i==2&&this.value!=''){
+                                remark.officeName = this.value.trim()
+                            }
+                            if(i==3&&this.value!=''){
+                                remark.post = this.value.trim()
+                            }
+                        })
+                        // console.log(JSON.stringify(remark))
+                        // return
                         let url = '/system/api/othersystem/v1.0/open';
                         $.ajax({
                             url:url,
-                            data:JSON.stringify(data),
+                            data:{remark:JSON.stringify(remark)},
                             type:'post',
-                            contentType:'application/json',
+                            contentType:'application/x-www-form-urlencoded',
                             success:function (res){
-                                console.log(res)
                             }
                         })
                     }
