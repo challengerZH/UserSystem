@@ -1,10 +1,13 @@
 package com.lzy.pi.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lzy.pi.base.BaseResponse;
 import com.lzy.pi.constants.BaseConstants;
 import com.lzy.pi.controller.param.AddLogRequest;
+import com.lzy.pi.entity.SysLog;
 import com.lzy.pi.entity.User;
+import com.lzy.pi.service.LogService;
 import com.lzy.pi.service.StaffService;
 import com.lzy.pi.utils.DateUtil;
 import com.lzy.pi.utils.LogUtil;
@@ -25,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * @author zhouhua
@@ -39,6 +43,9 @@ public class OtherSystemController {
 
     @Autowired
     private LogUtil logUtil;
+
+    @Autowired
+    private LogService logService;
 
     @Autowired
     private StaffService staffService;
@@ -90,10 +97,19 @@ public class OtherSystemController {
     public void open(HttpServletRequest request, HttpServletResponse response) {
         logger.info("==============进入OtherSystemController的open=================");
         HttpSession session = request.getSession();
+        String remark = request.getParameter("remark");
         User sessionUser = (User) session.getAttribute("USER");
         webSocketServer.sendInfo("123", "{\"data\":\"open\"}");
         if (sessionUser != null) {
-            logUtil.addLoginLog(sessionUser.getId().toString(), "远程开门");
+            SysLog log = new SysLog();
+            Date now = DateUtil.getSysDate();
+            log.setUserId(sessionUser.getId().toString());
+            log.setOprTime(now);
+            log.setOperation("远程开门");
+            log.setRemark(remark);
+            log.setType(BaseConstants.LogType.LOGIN_LOG);
+            logger.info("------新增门禁登录日志：{}------", JSON.toJSON(log));
+            logService.addOperationLog(log);
         }
     }
 
