@@ -22,6 +22,16 @@ public class LoginLogVO {
     private Date oprTime;
     //动作
     private String operation;
+    //备注
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public String getOperation() {
         return operation;
