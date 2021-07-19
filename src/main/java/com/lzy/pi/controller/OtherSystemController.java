@@ -103,6 +103,7 @@ public class OtherSystemController {
         if (sessionUser != null) {
             SysLog log = new SysLog();
             Date now = DateUtil.getSysDate();
+            log.setUserId(sessionUser.getId().toString());
             log.setOprTime(now);
             log.setOperation("远程开门");
             log.setRemark(remark);
