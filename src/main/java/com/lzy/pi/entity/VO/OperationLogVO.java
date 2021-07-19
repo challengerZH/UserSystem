@@ -20,6 +20,16 @@ public class OperationLogVO {
     private String operation;
     //操作时间
     private Date oprTime;
+    //备注
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public int getId() {
         return id;
